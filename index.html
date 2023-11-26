@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Sneaky</title>
+    <style>
+      body {
+        background-color: #222;
+        box-sizing: border-box;
+      }
+      canvas {
+        position: absolute;
+      }
+      .gameHolder {
+        position: relative;
+        height: 520px;
+      }
+    </style>
+    <script>document.write('<script src="http://'
+      + (location.host || 'localhost').split(':')[0]
+      + ':35729/livereload.js?snipver=1"></'
+      + 'script>')</script>
+  </head>
+  <body>
+    <section class="gameHolder">
+      <canvas id="background" width="512px" height="512px"></canvas>
+      <canvas id="vigilance" width="512px" height="512px"></canvas>
+      <canvas id="walls" width="512px" height="512px"></canvas>
+      <canvas id="player1" width="512px" height="512px"></canvas>
+      <canvas id="player2" width="512px" height="512px"></canvas>
+      <canvas id="objects" width="512px" height="512px"></canvas>
+      <canvas id="overlayer" width="512px" height="512px"></canvas>
+      <canvas id="sight" width="512px" height="512px"></canvas>
+    </section>
+    <script src="engine/game.js"></script>
+    <script src="engine/player.js"></script>
+    <script src="engine/vigilance.js"></script>
+    <script src="engine/user.js"></script>
+  </body>
+</html>

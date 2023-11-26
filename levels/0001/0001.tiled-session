@@ -1,0 +1,63 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "map.json": {
+            "scale": 1.38974609375,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 256.5216780268428,
+                "y": 256.8814559763896
+            }
+        },
+        "map.tmx": {
+            "expandedObjectLayers": [
+                13
+            ],
+            "scale": 1.38974609375,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 285.3039139905839,
+                "y": 232.4165554072096
+            }
+        },
+        "paleta.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tileset.tsx": {
+            "scaleInDock": 2
+        }
+    },
+    "last.exportedFilePath": "/Users/carlos/Sites/personal/sneaky/levels/0001",
+    "last.imagePath": "/Users/carlos/Sites/personal/sneaky/levels/0001",
+    "map.height": 32,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 32,
+    "openFiles": [
+    ],
+    "project": "0001.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "map.json",
+        "map.tmx",
+        "paleta.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 0,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
