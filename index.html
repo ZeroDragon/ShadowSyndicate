@@ -5,6 +5,8 @@
       body {
         background-color: #222;
         box-sizing: border-box;
+        color: #fff;
+        font-family: sans-serif;
       }
       canvas {
         position: absolute;
@@ -12,6 +14,12 @@
       .gameHolder {
         position: relative;
         height: 520px;
+      }
+      .done {
+        color: #4a0;
+        text-decoration: line-through;
+        display: flex;
+        flex-direction: column-reverse;
       }
     </style>
     <script>document.write('<script src="http://'
@@ -30,6 +38,41 @@
       <canvas id="overlayer" width="512px" height="512px"></canvas>
       <canvas id="sight" width="512px" height="512px"></canvas>
     </section>
+    Controls
+    - Move with WASD <br />
+    - Use "shift" to switch between robbers <br />
+    <br />
+    TO DO:
+    <ol>
+      <li>Interactive objects (steal stuff)</li>
+      <li>If player steps on light, that triggers the alarm</li>
+      <li>Being able to scape from the game area</li>
+      <li>If too close to a guard, user is captured</li>
+      <li>Scenes</li>
+        <ul>
+          <li>Level selector</li>
+          <li>Progression</li>
+          <li>Scene completion</li>
+          <li>Game over</li>
+        </ul>
+      <li>Multiplayer support</li>
+    </ol>
+
+    DONE:
+    <ol class="done">
+      <li>Use tileset maps</li>
+      <li>Draw map</li>
+      <li>Draw player and be able to move</li>
+      <li>Collitions with map</li>
+      <li>Interactive doors and windows</li>
+      <li>Draw second character</li>
+      <li>Switch between characters</li>
+      <li>Robber's line of sight</li>
+      <li>Guards</li>
+      <li>Guards line of sight</li>
+      <li>Cameras with line of sight</li>
+    </ol>
+
     <script src="engine/game.js"></script>
     <script src="engine/player.js"></script>
     <script src="engine/vigilance.js"></script>

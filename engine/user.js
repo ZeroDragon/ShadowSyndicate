@@ -6,11 +6,11 @@ const ctxPlayer1 = document.getElementById('player1').getContext('2d')
 const ctxPlayer2 = document.getElementById('player2').getContext('2d')
 const ctxOver = document.getElementById('overlayer').getContext('2d')
 
-const leftKey = 37
-const upKey = 38
-const rightKey = 39
-const downKey = 40
-const zkey = 90
+const leftKey = 65
+const upKey = 87
+const rightKey = 68
+const downKey = 83
+const zkey = 16
 const tileset = new Image()
 let throttler = -Infinity
 
