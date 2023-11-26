@@ -2,7 +2,7 @@
 
 const ctxObjects = document.getElementById('objects').getContext('2d')
 const ctxSight = document.getElementById('sight').getContext('2d')
-const [drawCollitions, noShadows] = [false, true]
+const [drawCollitions, noShadows] = [false, false]
 
 // eslint-disable-next-line no-unused-vars
 const game = {
@@ -160,11 +160,17 @@ const game = {
 
     const apertura = 60 / 2
     let rangoAngulos
-    if (['down', 'left', 'up'].includes(vg.direction)) x -= 1
+    if (vg.props.type === 'guard' && ['down', 'left', 'up'].includes(vg.direction)) x -= 1
     if (vg.direction === 'right') rangoAngulos = [360 - apertura, apertura]
     if (vg.direction === 'down') rangoAngulos = [90 - apertura, 90 + apertura]
     if (vg.direction === 'left') rangoAngulos = [180 - apertura, 180 + apertura]
     if (vg.direction === 'up') rangoAngulos = [270 - apertura, 270 + apertura]
+
+    if (vg.props.type === 'camera') {
+      if (['right', 'left'].includes(vg.direction)) x -= 1
+      if (vg.direction === 'right') rangoAngulos = [0, 45]
+      if (vg.direction === 'left') rangoAngulos = [135, 180]
+    }
 
     const posicionUnidad = this.computePosition(x, y).collitionIndex
 

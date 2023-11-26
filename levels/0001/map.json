@@ -141,7 +141,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 79, 80, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 56, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 0, 0, 0, 63, 64, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 64, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 71, 72, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 79, 80, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -560,10 +560,42 @@
                  "width":16,
                  "x":64,
                  "y":-16
+                }, 
+                {
+                 "height":16,
+                 "id":70,
+                 "name":"camera",
+                 "properties":[
+                        {
+                         "name":"left",
+                         "type":"string",
+                         "value":"{\"x\": 0 ,\"y\":64}"
+                        }, 
+                        {
+                         "name":"leftAlt",
+                         "type":"string",
+                         "value":"{\"x\": 0 ,\"y\":80}"
+                        }, 
+                        {
+                         "name":"right",
+                         "type":"string",
+                         "value":"{\"x\": 16 ,\"y\":64}"
+                        }, 
+                        {
+                         "name":"rightAlt",
+                         "type":"string",
+                         "value":"{\"x\": 16 ,\"y\":80}"
+                        }],
+                 "rotation":0,
+                 "type":"prototype",
+                 "visible":true,
+                 "width":16,
+                 "x":64,
+                 "y":-48
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -849,15 +881,49 @@
                  "width":32,
                  "x":368,
                  "y":384
+                }, 
+                {
+                 "height":16,
+                 "id":69,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"left"
+                        }],
+                 "rotation":0,
+                 "type":"camera",
+                 "visible":true,
+                 "width":16,
+                 "x":400,
+                 "y":144
+                }, 
+                {
+                 "height":16,
+                 "id":71,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"right"
+                        }],
+                 "rotation":0,
+                 "type":"camera",
+                 "visible":true,
+                 "width":16,
+                 "x":80,
+                 "y":240
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
  "nextlayerid":23,
- "nextobjectid":68,
+ "nextobjectid":72,
  "orientation":"orthogonal",
  "properties":[
         {

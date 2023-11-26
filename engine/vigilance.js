@@ -40,26 +40,32 @@ class Vigilance {
           .forEach(({ name, value }) => {
             itm[name] = JSON.parse(value)
           })
-        if (itm.type !== 'guard') return itm
         const start = itm.properties.find(prop => prop.name === 'start')
         if (start) itm.start = start.value
         return itm
       })
-      .map(instance => {
+      .forEach(instance => {
+        if (instance.type === 'camera') {
+          const direction = instance.properties.find(itm => itm.name === 'direction').value
+          instance.direction = direction
+          instance.start = true
+          delete instance.properties
+        }
         return new Vigilance(instance)
       })
   }
 
   frame () {
-    this.step = !this.step
+    if (this.props.type !== 'camera') this.step = !this.step
     if (!this.id) this.id = this.props.id
     const pointer = Vigilance.chain.find(prop => prop.id === this.id)
-    const next = Vigilance.chain.find(stop => stop.id === pointer.next)
+    const next = Vigilance.chain.find(stop => stop.id === pointer.next) || {}
     this.direction = pointer.direction
     if (this.direction === 'right') Object.assign(this.position, { x: this.position.x + 16 })
     if (this.direction === 'left') Object.assign(this.position, { x: this.position.x - 16 })
     if (this.direction === 'down') Object.assign(this.position, { y: this.position.y + 16 })
     if (this.direction === 'up') Object.assign(this.position, { y: this.position.y - 16 })
+    if (this.props.type === 'camera') this.direction = this.props.direction
     if (next.x === this.position.x && next.y === this.position.y) {
       this.id = next.id
     }
@@ -83,5 +89,6 @@ class Vigilance {
       this.props.height
     )
     ctx.closePath()
+    return sprite
   }
 }

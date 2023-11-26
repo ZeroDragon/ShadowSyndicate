@@ -48,7 +48,7 @@
     "openFiles": [
     ],
     "project": "0001.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "map.json",
         "map.tmx",
