@@ -36,12 +36,22 @@ class Vigilance {
       })
     instances
       .map(itm => {
+        const start = itm.properties.find(prop => prop.name === 'start')
+        if (start) itm.start = start.value
+        else itm.start = false
+        if (itm.type === 'camera') itm.start = true
+        return itm
+      })
+      .filter(obj => {
+        if (obj.type === 'guard' && !obj.start) return false
+        return true
+      })
+      .map((itm, k) => {
+        console.log(k)
         game.prototypes.find(obj => obj.name === itm.type).properties
           .forEach(({ name, value }) => {
             itm[name] = JSON.parse(value)
           })
-        const start = itm.properties.find(prop => prop.name === 'start')
-        if (start) itm.start = start.value
         return itm
       })
       .forEach(instance => {
