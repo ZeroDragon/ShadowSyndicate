@@ -46,8 +46,7 @@ class Vigilance {
         if (obj.type === 'guard' && !obj.start) return false
         return true
       })
-      .map((itm, k) => {
-        console.log(k)
+      .map(itm => {
         game.prototypes.find(obj => obj.name === itm.type).properties
           .forEach(({ name, value }) => {
             itm[name] = JSON.parse(value)
