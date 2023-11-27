@@ -23,21 +23,20 @@ document.addEventListener('keydown', ({ keyCode }) => {
 
 const items = [...document.querySelectorAll('.input')]
 items.forEach(button => {
-  button.addEventListener('click', (event) => {
-    const [, input] = event.target.className.split(' ')
-    eventsTrigger(userKeys[`${input}Key`])
-  })
-  button.addEventListener('mousedown', (event) => {
+  button.addEventListener('touchstart', (event) => {
     interval = setInterval(() => {
       const [, input] = event.target.className.split(' ')
       eventsTrigger(userKeys[`${input}Key`])
     }, 50)
   })
-  button.addEventListener('mouseup', _ => {
+  button.addEventListener('touchend', _ => {
     clearInterval(interval)
   })
 })
 
+document.querySelector('body').addEventListener('touchend', (e) => {
+  e.preventDefault()
+})
 const eventsTrigger = (keyCode) => {
   const now = new Date().getTime()
   if (now - throttler < 60) return
