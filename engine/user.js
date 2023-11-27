@@ -6,39 +6,67 @@ const ctxPlayer1 = document.getElementById('player1').getContext('2d')
 const ctxPlayer2 = document.getElementById('player2').getContext('2d')
 const ctxOver = document.getElementById('overlayer').getContext('2d')
 
-const leftKey = 65
-const upKey = 87
-const rightKey = 68
-const downKey = 83
-const zkey = 16
+const userKeys = {
+  leftKey: 65,
+  upKey: 87,
+  rightKey: 68,
+  downKey: 83,
+  aKey: 16
+}
 const tileset = new Image()
 let throttler = -Infinity
+let interval
 
 document.addEventListener('keydown', ({ keyCode }) => {
+  eventsTrigger(keyCode)
+})
+
+const items = [...document.querySelectorAll('.input')]
+items.forEach(button => {
+  button.addEventListener('click', (event) => {
+    const [, input] = event.target.className.split(' ')
+    eventsTrigger(userKeys[`${input}Key`])
+  })
+  button.addEventListener('mousedown', (event) => {
+    interval = setInterval(() => {
+      const [, input] = event.target.className.split(' ')
+      eventsTrigger(userKeys[`${input}Key`])
+    }, 50)
+  })
+  button.addEventListener('mouseup', _ => {
+    clearInterval(interval)
+  })
+})
+
+const eventsTrigger = (keyCode) => {
   const now = new Date().getTime()
   if (now - throttler < 60) return
   throttler = new Date().getTime()
-  const ply = Player.getCurrent()
+  playerActions(keyCode)
+}
+
+const playerActions = (keyCode) => {
+  const player = Player.getCurrent()
   switch (keyCode) {
-    case leftKey:
-      ply.position.flip = true
-      ply.move({ x: ply.position.x - 16 })
+    case userKeys.leftKey:
+      player.position.flip = true
+      player.move({ x: player.position.x - 16 })
       break
-    case rightKey:
-      ply.position.flip = false
-      ply.move({ x: ply.position.x + 16 })
+    case userKeys.rightKey:
+      player.position.flip = false
+      player.move({ x: player.position.x + 16 })
       break
-    case upKey:
-      ply.move({ y: ply.position.y - 16 })
+    case userKeys.upKey:
+      player.move({ y: player.position.y - 16 })
       break
-    case downKey:
-      ply.move({ y: ply.position.y + 16 })
+    case userKeys.downKey:
+      player.move({ y: player.position.y + 16 })
       break
-    case zkey:
+    case userKeys.aKey:
       Player.instances.forEach(player => player.toggleActivation())
       break
   }
-})
+}
 
 const loadMetadata = (map, name, section = 'data') => {
   const layer = map.layers.find(layer => layer.name === name)
