@@ -106,10 +106,10 @@ const preload = level => {
       const tileSource = map.properties.find(itm => itm.name === 'tileset')
       tileset.onload = function () {
         setPalette(tileset)
+        game.setPrototypes(loadMetadata(map, 'objects', 'objects'))
         game.insideMap = loadMetadata(map, 'floor')
         game.collitionMap = loadMetadata(map, 'collitions')
         game.obstaclesMap = loadMetadata(map, 'obstacles')
-        game.setPrototypes(loadMetadata(map, 'objects', 'objects'))
         game.setObjects(loadMetadata(map, 'objects', 'objects'))
         Vigilance.createAll(loadMetadata(map, 'vigilance', 'objects'))
         Player.instances.forEach(player => player.draw())

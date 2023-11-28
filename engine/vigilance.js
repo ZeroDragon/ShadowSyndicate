@@ -11,6 +11,10 @@ class Vigilance {
 
   static ctx = document.getElementById('vigilance').getContext('2d')
 
+  static getCamera (id) {
+    return Vigilance.instances.find(itm => itm.id === id)
+  }
+
   static getAll () {
     return Vigilance.instances
   }
@@ -59,13 +63,13 @@ class Vigilance {
           instance.direction = direction
           instance.start = true
           delete instance.properties
+          game.addObject(instance)
         }
         return new Vigilance(instance)
       })
   }
 
   frame () {
-    if (this.props.type !== 'camera') this.step = !this.step
     if (!this.id) this.id = this.props.id
     const pointer = Vigilance.chain.find(prop => prop.id === this.id)
     const next = Vigilance.chain.find(stop => stop.id === pointer.next) || {}
@@ -82,6 +86,7 @@ class Vigilance {
   }
 
   draw () {
+    if (this.props.type === 'camera') return // cameras are drawed in the game loop
     const normAlt = { true: 'Alt', false: '' }[!this.step]
     const sprite = `${this.direction}${normAlt}`
     const ctx = Vigilance.ctx

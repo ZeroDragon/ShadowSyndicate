@@ -2,7 +2,7 @@
 
 const ctxObjects = document.getElementById('objects').getContext('2d')
 const ctxSight = document.getElementById('sight').getContext('2d')
-const [drawCollitions, noShadows] = [false, false]
+const [drawCollitions, noShadows] = [true, true]
 
 // eslint-disable-next-line no-unused-vars
 const game = {
@@ -25,6 +25,15 @@ const game = {
   },
   setPrototypes (objects) {
     this.prototypes = objects.filter(({ type }) => type === 'prototype')
+  },
+  addObject (obj) {
+    if (!obj.properties) obj.properties = {}
+    this.prototypes.find(prot => prot.name === obj.type).properties
+      .forEach(({ name, value }) => {
+        obj.properties[name] = JSON.parse(value)
+      })
+    this.objects.push(obj)
+    this.drawObject(obj)
   },
   setObjects (objects) {
     this.objects = objects.filter(({ type }) => type !== 'prototype')
@@ -53,6 +62,10 @@ const game = {
     }
     object.collitionIndex = this.computePosition(object.col.x, object.col.y).collitionIndex - 1
     ctxObjects.clearRect(object.x, object.y, object.width, object.height)
+    if (object.type === 'camera') {
+      const normAlt = object.state ? '' : 'Alt'
+      proto[object.state] = object[`${object.direction}${normAlt}`]
+    }
     ctxObjects.drawImage(
       tileset,
       proto[object.state].x, // source x
@@ -230,7 +243,7 @@ const game = {
       }
     }
 
-    Vigilance.ctx.clearRect(vg.x + 8, vg.y + 16, 16, 16)
+    Vigilance.ctx.beginPath()
     sombra.forEach((val, index) => {
       if (val === 0) return
       Vigilance.ctx.rect((index % 32) * 16, Math.floor(index / 32) * 16, 16, 16)

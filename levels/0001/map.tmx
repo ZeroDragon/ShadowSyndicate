@@ -334,10 +334,12 @@
   </object>
   <object id="70" name="camera" type="prototype" x="64" y="-48" width="16" height="16">
    <properties>
+    <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 0, &quot;w&quot;: 8, &quot;h&quot;: 8 }"/>
     <property name="left" value="{&quot;x&quot;: 0 ,&quot;y&quot;:64}"/>
     <property name="leftAlt" value="{&quot;x&quot;: 0 ,&quot;y&quot;:80}"/>
     <property name="right" value="{&quot;x&quot;: 16 ,&quot;y&quot;:64}"/>
     <property name="rightAlt" value="{&quot;x&quot;: 16 ,&quot;y&quot;:80}"/>
+    <property name="takeable" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
