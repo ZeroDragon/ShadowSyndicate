@@ -1,4 +1,4 @@
-/* global tileset, game */
+/* global tileset, objects */
 
 // eslint-disable-next-line no-unused-vars
 class Vigilance {
@@ -51,7 +51,7 @@ class Vigilance {
         return true
       })
       .map(itm => {
-        game.prototypes.find(obj => obj.name === itm.type).properties
+        objects.prototypes.find(obj => obj.name === itm.type).properties
           .forEach(({ name, value }) => {
             itm[name] = JSON.parse(value)
           })
@@ -63,7 +63,7 @@ class Vigilance {
           instance.direction = direction
           instance.start = true
           delete instance.properties
-          game.addObject(instance)
+          objects.addObject(instance)
         }
         return new Vigilance(instance)
       })

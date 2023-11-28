@@ -1,4 +1,4 @@
-/* global game, drawCollitions, tileset */
+/* global game, drawCollitions, tileset, objects */
 
 // eslint-disable-next-line no-unused-vars
 class Player {
@@ -66,7 +66,7 @@ class Player {
       ) {
         this.interactingWith.state = false
         this.stance = 'standing'
-        game.drawObject(this.interactingWith)
+        objects.drawObject(this.interactingWith)
         delete this.interactingWith
         return
       }
@@ -78,8 +78,7 @@ class Player {
     if (!jump) {
       const computed = game.computePosition(x, y + 16)
       if (computed.x < 1 || computed.x > 32 || computed.y < 2 || computed.y > 32) return
-      // if (game.activateObject(x + this.position.col.x, y + this.position.col.y)) return
-      if (game.activateObject(x, y)) return
+      if (objects.activateObject(x, y)) return
       if (game.collitionMap[computed.collitionIndex] !== 0) return
     }
     this.position.x = x

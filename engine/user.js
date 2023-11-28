@@ -1,4 +1,4 @@
-/* global Player, Vigilance, game */
+/* global Player, Vigilance, game, objects */
 const canvas = document.getElementById('background')
 const ctxBg = canvas.getContext('2d')
 const ctxWalls = document.getElementById('walls').getContext('2d')
@@ -107,11 +107,11 @@ const preload = level => {
       const tileSource = map.properties.find(itm => itm.name === 'tileset')
       tileset.onload = function () {
         setPalette(tileset)
-        game.setPrototypes(loadMetadata(map, 'objects', 'objects'))
+        objects.setPrototypes(loadMetadata(map, 'objects', 'objects'))
         game.insideMap = loadMetadata(map, 'floor')
         game.collitionMap = loadMetadata(map, 'collitions')
         game.obstaclesMap = loadMetadata(map, 'obstacles')
-        game.setObjects(loadMetadata(map, 'objects', 'objects'))
+        objects.setObjects(loadMetadata(map, 'objects', 'objects'))
         Vigilance.createAll(loadMetadata(map, 'vigilance', 'objects'))
         Player.instances.forEach(player => player.draw())
         ctxBg.beginPath()
