@@ -187,7 +187,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,71,72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="12" name="collitions" width="32" height="32">
+ <layer id="12" name="collitions" width="32" height="32" visible="0">
   <data encoding="csv">
 27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -307,7 +307,7 @@
   <object id="24" type="window" x="416" y="400" width="16" height="32"/>
   <object id="29" name="window" type="prototype" x="32" y="-16" width="16" height="16">
    <properties>
-    <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 8, &quot;w&quot;: 8, &quot;h&quot;: 16 }"/>
+    <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 16, &quot;w&quot;: 16, &quot;h&quot;: 16 }"/>
     <property name="false" value="{ &quot;x&quot;: 112, &quot;y&quot;: 64 }"/>
     <property name="true" value="{ &quot;x&quot;: 112, &quot;y&quot;: 32 }"/>
    </properties>
@@ -344,8 +344,6 @@
    </properties>
   </object>
   <object id="72" type="safe" x="288" y="144" width="32" height="48"/>
-  <object id="74" type="statue" x="304" y="320" width="16" height="32"/>
-  <object id="75" type="computer" x="336" y="320" width="32" height="32"/>
   <object id="76" type="fuse" x="144" y="464" width="16" height="32"/>
   <object id="77" name="safe" type="prototype" x="96" y="-48" width="16" height="16">
    <properties>

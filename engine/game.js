@@ -2,7 +2,7 @@
 
 const ctxObjects = document.getElementById('objects').getContext('2d')
 const ctxSight = document.getElementById('sight').getContext('2d')
-const [drawCollitions, noShadows] = [true, true]
+const [drawCollitions, noShadows] = [false, false]
 
 // eslint-disable-next-line no-unused-vars
 const game = {
