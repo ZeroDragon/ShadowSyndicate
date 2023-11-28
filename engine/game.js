@@ -2,7 +2,7 @@
 
 const ctxObjects = document.getElementById('objects').getContext('2d')
 const ctxSight = document.getElementById('sight').getContext('2d')
-const [drawCollitions, noShadows] = [false, false]
+const [drawCollitions, noShadows] = [true, true]
 
 // eslint-disable-next-line no-unused-vars
 const game = {
@@ -95,29 +95,51 @@ const game = {
   },
   activateObject (x, y) {
     const ply = Player.getCurrent()
+    x = x + ply.position.col.x
+    y = y + ply.position.col.y
+
+    const left1 = x
+    const right1 = x + ply.bound.w
+    const top1 = y
+    const bottom1 = y + ply.bound.h
+
     const obj = this.objects.find(itm => {
-      return itm.col.x <= x &&
-        itm.col.x + itm.col.w >= x &&
-        itm.col.y <= y &&
-        itm.col.y + itm.col.h >= y
+      const left2 = itm.col.x
+      const right2 = itm.col.x + itm.col.w
+      const top2 = itm.col.y
+      const bottom2 = itm.col.y + itm.col.h
+      return left1 < right2 && right1 > left2 && top1 < bottom2 && bottom1 > top2
     })
 
     if (!obj) return false
+
+    if (obj.properties.restrictFrom?.includes(ply.movement)) return
+
     let direction = { x: 32, y: 0 }
     if (x < (ply.position.x + 8)) direction.x = -32
     if (y < (ply.position.y + 32)) direction = { x: 0, y: -48 }
     if (y > (ply.position.y + 32)) direction = { x: 0, y: 48 }
 
     ply.interactingWith = obj
-    if (obj.state === true && ['window', 'door'].includes(obj.type)) {
-      ply.move({ x: ply.position.x + direction.x, y: ply.position.y + direction.y }, true)
-      if (obj.type === 'door') obj.state = false
-      this.drawObject(obj)
-      return false
+
+    if (obj.state === true) {
+      if (['window', 'door'].includes(obj.type)) {
+        ply.move({ x: ply.position.x + direction.x, y: ply.position.y + direction.y }, true)
+      }
+
+      if (obj.properties.returnState) {
+        obj.state = false
+        this.drawObject(obj)
+        return false
+      }
     }
 
     obj.state = true
     this.drawObject(obj)
+    if (obj.properties.interactive) {
+      ply.stance = 'kneeled'
+      ply.draw()
+    }
     return false
   },
   toggleVisibility (obj) {

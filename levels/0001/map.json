@@ -228,7 +228,7 @@
             0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 0, 0, 0, 0, 0,
             0, 0, 27, 27, 27, 27, 27, 27, 0, 0, 0, 0, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 0, 0, 0, 0, 0,
-            0, 0, 27, 27, 27, 27, 27, 27, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0,
+            0, 0, 27, 27, 27, 27, 27, 27, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 27, 27, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 27, 27, 0,
             0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0,
@@ -255,7 +255,7 @@
          "name":"collitions",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":32,
          "x":0,
          "y":0
@@ -485,7 +485,7 @@
                         {
                          "name":"col",
                          "type":"string",
-                         "value":"{ \"x\": 0, \"y\": 0, \"w\": 8, \"h\": 16 }"
+                         "value":"{ \"x\": 0, \"y\": 0, \"w\": 8, \"h\": 20 }"
                         }, 
                         {
                          "name":"constraints",
@@ -496,6 +496,11 @@
                          "name":"false",
                          "type":"string",
                          "value":"{ \"x\": 80, \"y\": 32 }"
+                        }, 
+                        {
+                         "name":"returnState",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"true",
@@ -602,6 +607,198 @@
                  "width":16,
                  "x":64,
                  "y":-48
+                }, 
+                {
+                 "height":48,
+                 "id":72,
+                 "name":"",
+                 "rotation":0,
+                 "type":"safe",
+                 "visible":true,
+                 "width":32,
+                 "x":288,
+                 "y":144
+                }, 
+                {
+                 "height":32,
+                 "id":74,
+                 "name":"",
+                 "rotation":0,
+                 "type":"statue",
+                 "visible":true,
+                 "width":16,
+                 "x":304,
+                 "y":320
+                }, 
+                {
+                 "height":32,
+                 "id":75,
+                 "name":"",
+                 "rotation":0,
+                 "type":"computer",
+                 "visible":true,
+                 "width":32,
+                 "x":336,
+                 "y":320
+                }, 
+                {
+                 "height":32,
+                 "id":76,
+                 "name":"",
+                 "rotation":0,
+                 "type":"fuse",
+                 "visible":true,
+                 "width":16,
+                 "x":144,
+                 "y":464
+                }, 
+                {
+                 "height":16,
+                 "id":77,
+                 "name":"safe",
+                 "properties":[
+                        {
+                         "name":"col",
+                         "type":"string",
+                         "value":"{ \"x\": 0, \"y\": 16, \"w\": 16, \"h\": 16 }"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "type":"string",
+                         "value":"[\"up\", \"down\"]"
+                        }, 
+                        {
+                         "name":"false",
+                         "type":"string",
+                         "value":"{ \"x\": 0, \"y\": 272 }"
+                        }, 
+                        {
+                         "name":"interactive",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"restrictFrom",
+                         "type":"string",
+                         "value":"[\"left\", \"right\"]"
+                        }, 
+                        {
+                         "name":"true",
+                         "type":"string",
+                         "value":"{ \"x\": 32, \"y\": 272 }"
+                        }],
+                 "rotation":0,
+                 "type":"prototype",
+                 "visible":true,
+                 "width":16,
+                 "x":96,
+                 "y":-48
+                }, 
+                {
+                 "height":16,
+                 "id":78,
+                 "name":"statue",
+                 "properties":[
+                        {
+                         "name":"col",
+                         "type":"string",
+                         "value":"{ \"x\": 0, \"y\": 0, \"w\": 8, \"h\": 16 }"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "type":"string",
+                         "value":"[\"up\", \"down\"]"
+                        }, 
+                        {
+                         "name":"false",
+                         "type":"string",
+                         "value":"{ \"x\": 80, \"y\": 32 }"
+                        }, 
+                        {
+                         "name":"true",
+                         "type":"string",
+                         "value":"{ \"x\": 48, \"y\": 32 }"
+                        }],
+                 "rotation":0,
+                 "type":"prototype",
+                 "visible":true,
+                 "width":16,
+                 "x":96,
+                 "y":-16
+                }, 
+                {
+                 "height":16,
+                 "id":79,
+                 "name":"computer",
+                 "properties":[
+                        {
+                         "name":"col",
+                         "type":"string",
+                         "value":"{ \"x\": 0, \"y\": 0, \"w\": 8, \"h\": 16 }"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "type":"string",
+                         "value":"[\"up\", \"down\"]"
+                        }, 
+                        {
+                         "name":"false",
+                         "type":"string",
+                         "value":"{ \"x\": 80, \"y\": 32 }"
+                        }, 
+                        {
+                         "name":"true",
+                         "type":"string",
+                         "value":"{ \"x\": 48, \"y\": 32 }"
+                        }],
+                 "rotation":0,
+                 "type":"prototype",
+                 "visible":true,
+                 "width":16,
+                 "x":128,
+                 "y":-48
+                }, 
+                {
+                 "height":16,
+                 "id":80,
+                 "name":"fuse",
+                 "properties":[
+                        {
+                         "name":"col",
+                         "type":"string",
+                         "value":"{ \"x\": 0, \"y\": -8, \"w\": 8, \"h\": 16 }"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "type":"string",
+                         "value":"[\"down\"]"
+                        }, 
+                        {
+                         "name":"false",
+                         "type":"string",
+                         "value":"{ \"x\": 80, \"y\": 304 }"
+                        }, 
+                        {
+                         "name":"interactive",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"returnState",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"true",
+                         "type":"string",
+                         "value":"{ \"x\": 64, \"y\": 304 }"
+                        }],
+                 "rotation":0,
+                 "type":"prototype",
+                 "visible":true,
+                 "width":16,
+                 "x":128,
+                 "y":-16
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -933,7 +1130,7 @@
          "y":0
         }],
  "nextlayerid":23,
- "nextobjectid":72,
+ "nextobjectid":81,
  "orientation":"orthogonal",
  "properties":[
         {
