@@ -102,14 +102,14 @@ const game = {
         itm.col.y + itm.col.h >= y
     })
 
+    if (!obj) return false
     let direction = { x: 32, y: 0 }
     if (x < (ply.position.x + 8)) direction.x = -32
     if (y < (ply.position.y + 32)) direction = { x: 0, y: -48 }
     if (y > (ply.position.y + 32)) direction = { x: 0, y: 48 }
 
-    if (!obj) return false
     ply.interactingWith = obj
-    if (obj.state === true) {
+    if (obj.state === true && ['window', 'door'].includes(obj.type)) {
       ply.move({ x: ply.position.x + direction.x, y: ply.position.y + direction.y }, true)
       if (obj.type === 'door') obj.state = false
       this.drawObject(obj)
@@ -164,6 +164,7 @@ const game = {
     ctxSight.closePath()
   },
   generateSight (vg) {
+    if (vg.props.state) return
     const mapa = this.collitionMap
     const filas = 32
     const columnas = 32
