@@ -29,6 +29,10 @@ const items = [...document.querySelectorAll('.input')]
 items.forEach(button => {
   button.addEventListener('touchstart', (event) => {
     interval = setInterval(() => {
+      if (!started) {
+        game.ticker()
+        started = true
+      }
       const [, input] = event.target.className.split(' ')
       eventsTrigger(userKeys[`${input}Key`])
     }, 50)
