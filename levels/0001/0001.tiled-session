@@ -10,11 +10,14 @@
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "map.json": {
+            "expandedObjectLayers": [
+                13
+            ],
             "scale": 1.38974609375,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 256.8814559763896,
-                "y": 256.8814559763896
+                "x": 256.1619000772961,
+                "y": 256.1619000772961
             }
         },
         "map.tmx": {
@@ -50,8 +53,8 @@
     "project": "0001.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "map.tmx",
         "map.json",
+        "map.tmx",
         "paleta.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",

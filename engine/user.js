@@ -1,4 +1,4 @@
-/* global Player, Vigilance, game, objects */
+/* global Player, Vigilance, game, Obj */
 const canvas = document.getElementById('background')
 const ctxBg = canvas.getContext('2d')
 const ctxWalls = document.getElementById('walls').getContext('2d')
@@ -98,8 +98,8 @@ const setPalette = tileset => {
 }
 
 const preload = level => {
-  // Player.create(ctxPlayer1, 280, 160, true)
-  Player.create(ctxPlayer1, -8, 0, true)
+  Player.create(ctxPlayer1, 280, 160, true)
+  // Player.create(ctxPlayer1, -8, 0, true)
   Player.create(ctxPlayer2, -8, 32)
   fetch(`${level}/map.json`)
     .then(response => response.json())
@@ -107,11 +107,11 @@ const preload = level => {
       const tileSource = map.properties.find(itm => itm.name === 'tileset')
       tileset.onload = function () {
         setPalette(tileset)
-        objects.setPrototypes(loadMetadata(map, 'objects', 'objects'))
+        Obj.setPrototypes(loadMetadata(map, 'objects', 'objects'))
         game.insideMap = loadMetadata(map, 'floor')
         game.collitionMap = loadMetadata(map, 'collitions')
         game.obstaclesMap = loadMetadata(map, 'obstacles')
-        objects.setObjects(loadMetadata(map, 'objects', 'objects'))
+        Obj.setObjects(loadMetadata(map, 'objects', 'objects'))
         Vigilance.createAll(loadMetadata(map, 'vigilance', 'objects'))
         Player.instances.forEach(player => player.draw())
         ctxBg.beginPath()

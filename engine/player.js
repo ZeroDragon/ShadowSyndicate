@@ -1,4 +1,4 @@
-/* global game, drawCollitions, tileset, objects */
+/* global game, drawCollitions, tileset, Obj */
 
 // eslint-disable-next-line no-unused-vars
 class Player {
@@ -58,15 +58,19 @@ class Player {
       else if (oY > pY) relative = 'down'
 
       // dont let move char if not in constraints
-      if (!this.interactingWith.properties.constraints.includes(this.movement)) return
+      if (!this.interactingWith.properties.constraints.includes(this.movement)) {
+        return this.interactingWith.changeConditions()
+      }
 
       if (
         (relative === 'up' && this.movement === 'down') ||
         (relative === 'down' && this.movement === 'up')
       ) {
         this.interactingWith.state = false
+        this.interactingWith.reset()
         this.stance = 'standing'
-        objects.drawObject(this.interactingWith)
+        this.draw()
+        this.interactingWith.draw()
         delete this.interactingWith
         return
       }
@@ -78,7 +82,7 @@ class Player {
     if (!jump) {
       const computed = game.computePosition(x, y + 16)
       if (computed.x < 1 || computed.x > 32 || computed.y < 2 || computed.y > 32) return
-      if (objects.activateObject(x, y)) return
+      if (Obj.activateObject(x, y)) return
       if (game.collitionMap[computed.collitionIndex] !== 0) return
     }
     this.position.x = x

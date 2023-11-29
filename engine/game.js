@@ -71,7 +71,7 @@ const game = {
     ctxSight.closePath()
   },
   generateSight (vg) {
-    if (vg.props.state) return
+    if (vg.props.Object?.state) return
     const mapa = this.collitionMap
     const filas = 32
     const columnas = 32

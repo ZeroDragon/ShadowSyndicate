@@ -1,91 +1,68 @@
 /* global Player, tileset, drawCollitions, game */
-const ctxObjects = document.getElementById('objects').getContext('2d')
 
 // eslint-disable-next-line no-unused-vars
-const objects = {
-  setPrototypes (objects) {
-    this.prototypes = objects.filter(({ type }) => type === 'prototype')
-  },
-  addObject (obj) {
-    if (!obj.properties) obj.properties = {}
-    this.prototypes.find(prot => prot.name === obj.type).properties
-      .forEach(({ name, value }) => {
-        obj.properties[name] = JSON.parse(value)
-      })
-    this.objects.push(obj)
-    objects.drawObject(obj)
-  },
-  setObjects (objs) {
-    this.objects = objs.filter(({ type }) => type !== 'prototype')
-    this.objects
-      .map(object => {
-        if (!object.properties) object.properties = {}
-        this.prototypes.find(obj => obj.name === object.type).properties
-          .forEach(({ name, value }) => {
-            object.properties[name] = JSON.parse(value)
-          })
-        return object
-      })
-      .forEach(object => {
-        objects.drawObject(object)
-      })
-  },
-  drawObject (object) {
-    if (object.type === 'door') game.toggleVisibility(object)
-    const proto = object.properties
-    object.state = !!object.state
-    object.col = {
-      x: object.x + proto.col.x,
-      y: object.y + proto.col.y,
+class Obj {
+  constructor (obj) {
+    this.ctx = document.getElementById('objects').getContext('2d')
+    Object.entries(obj).forEach(([key, value]) => {
+      this[key] = JSON.parse(JSON.stringify(value))
+    })
+    const proto = this.properties
+    this.state = !!this.state
+    this.col = {
+      x: this.x + proto.col.x,
+      y: this.y + proto.col.y,
       w: proto.col.w,
       h: proto.col.h
     }
-    object.collitionIndex = game.computePosition(object.col.x, object.col.y).collitionIndex - 1
-    ctxObjects.clearRect(object.x, object.y, object.width, object.height)
-    if (object.type === 'camera') {
-      const normAlt = object.state ? '' : 'Alt'
-      proto[object.state] = object[`${object.direction}${normAlt}`]
-    }
-    ctxObjects.drawImage(
-      tileset,
-      proto[object.state].x, // source x
-      proto[object.state].y, // source y
-      object.width, // source width
-      object.height, // source height
-      object.x, // desination x
-      object.y, // destination y
-      object.width, // destination width
-      object.height // destination height
-    )
-    if (drawCollitions) {
-      // draw collition on object
-      ctxObjects.rect(
-        object.col.x,
-        object.col.y,
-        object.col.w,
-        object.col.h
-      )
-      ctxObjects.stroke()
-    }
-  },
-  activateObject (x, y) {
-    const ply = Player.getCurrent()
-    x = x + ply.position.col.x
-    y = y + ply.position.col.y
+    this.collitionIndex = game.computePosition(this.col.x, this.col.y).collitionIndex - 1
+  }
 
+  static setPrototypes (objs) {
+    Obj.prototypes = objs.filter(({ type }) => type === 'prototype')
+  }
+
+  static setObjects (objs) {
+    objs
+      .filter(({ type }) => type !== 'prototype')
+      .forEach(obj => {
+        Obj.addObject(obj)
+      })
+  }
+
+  static addObject (obj) {
+    if (!obj.properties) obj.properties = {}
+    Obj.prototypes.find(prot => prot.name === obj.type).properties
+      .forEach(({ name, value }) => {
+        obj.properties[name] = JSON.parse(value)
+      })
+    const nobj = new Obj(obj)
+    if (!Obj.instances) Obj.instances = []
+    Obj.instances.push(nobj)
+    nobj.draw()
+    return nobj
+  }
+
+  static returnCollition (x, y, ply) {
     const left1 = x
     const right1 = x + ply.bound.w
     const top1 = y
     const bottom1 = y + ply.bound.h
 
-    const obj = this.objects.find(itm => {
+    return Obj.instances.find(itm => {
       const left2 = itm.col.x
       const right2 = itm.col.x + itm.col.w
       const top2 = itm.col.y
       const bottom2 = itm.col.y + itm.col.h
       return left1 < right2 && right1 > left2 && top1 < bottom2 && bottom1 > top2
     })
+  }
 
+  static activateObject (intentedX, intentedY) {
+    const ply = Player.getCurrent()
+    const x = intentedX + ply.position.col.x
+    const y = intentedY + ply.position.col.y
+    const obj = Obj.returnCollition(x, y, ply)
     if (!obj) return false
 
     if (obj.properties.restrictFrom?.includes(ply.movement)) return
@@ -98,23 +75,68 @@ const objects = {
     ply.interactingWith = obj
 
     if (obj.state === true) {
-      if (['window', 'door'].includes(obj.type)) {
+      if (obj.properties.gateway) {
         ply.move({ x: ply.position.x + direction.x, y: ply.position.y + direction.y }, true)
       }
 
       if (obj.properties.returnState) {
-        obj.state = false
-        this.drawObject(obj)
+        obj.setState(false)
+        obj.draw()
         return false
       }
     }
 
-    obj.state = true
-    this.drawObject(obj)
     if (obj.properties.interactive) {
       ply.stance = 'kneeled'
       ply.draw()
     }
+
+    if (obj.properties.changeConditions) return obj.changeConditions()
+    obj.setState(true)
+    obj.draw()
     return false
+  }
+
+  draw () {
+    if (this.type === 'door') game.toggleVisibility(this)
+    const proto = this.properties
+    this.ctx.clearRect(this.x, this.y, this.width, this.height)
+    if (this.type === 'camera') {
+      const normAlt = this.state ? '' : 'Alt'
+      proto[this.state] = this[`${this.direction}${normAlt}`]
+    }
+    this.ctx.drawImage(
+      tileset,
+      proto[this.state].x, // source x
+      proto[this.state].y, // source y
+      this.width, // source width
+      this.height, // source height
+      this.x, // desination x
+      this.y, // destination y
+      this.width, // destination width
+      this.height // destination height
+    )
+    if (drawCollitions) {
+      // draw collition on object
+      this.ctx.rect(
+        this.col.x,
+        this.col.y,
+        this.col.w,
+        this.col.h
+      )
+      this.ctx.stroke()
+    }
+  }
+
+  setState (value) {
+    this.state = value
+  }
+
+  changeConditions () {
+    console.log('changeConditions', this)
+  }
+
+  reset () {
+    console.log('reset', this)
   }
 }

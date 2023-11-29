@@ -309,6 +309,7 @@
    <properties>
     <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 16, &quot;w&quot;: 16, &quot;h&quot;: 16 }"/>
     <property name="false" value="{ &quot;x&quot;: 112, &quot;y&quot;: 64 }"/>
+    <property name="gateway" type="bool" value="true"/>
     <property name="true" value="{ &quot;x&quot;: 112, &quot;y&quot;: 32 }"/>
    </properties>
   </object>
@@ -317,6 +318,7 @@
     <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 0, &quot;w&quot;: 8, &quot;h&quot;: 20 }"/>
     <property name="constraints" value="[&quot;up&quot;, &quot;down&quot;]"/>
     <property name="false" value="{ &quot;x&quot;: 80, &quot;y&quot;: 32 }"/>
+    <property name="gateway" type="bool" value="true"/>
     <property name="returnState" type="bool" value="true"/>
     <property name="true" value="{ &quot;x&quot;: 48, &quot;y&quot;: 32 }"/>
    </properties>
@@ -347,6 +349,7 @@
   <object id="76" type="fuse" x="144" y="464" width="16" height="32"/>
   <object id="77" name="safe" type="prototype" x="96" y="-48" width="16" height="16">
    <properties>
+    <property name="changeConditions" type="bool" value="true"/>
     <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 16, &quot;w&quot;: 16, &quot;h&quot;: 16 }"/>
     <property name="constraints" value="[&quot;up&quot;, &quot;down&quot;]"/>
     <property name="false" value="{ &quot;x&quot;: 0, &quot;y&quot;: 272 }"/>
