@@ -2,7 +2,7 @@
 const ctxSight = document.getElementById('sight').getContext('2d')
 
 // eslint-disable-next-line no-unused-vars
-const [drawCollitions, noShadows] = [false, false]
+const [drawCollitions, noShadows, noSounds] = [true, true, true]
 // eslint-disable-next-line no-unused-vars
 const game = {
   objects: {},
@@ -13,10 +13,13 @@ const game = {
   ticker () {
     if (this.stepValue === 10) this.stepValue = 0
     this.stepValue += 1
-    const stepSound = ['F2', 'C2'][this.stepValue % 2]
-    playNote(createSoundMap([stepSound], [400]))
+    if (!noSounds) {
+      const stepSound = ['F2', 'C2'][this.stepValue % 2]
+      playNote(createSoundMap([stepSound], [400]))
+    }
     if (this.timer) clearInterval(this.timer)
     Vigilance.ctx.clearRect(0, 0, 512, 512)
+    Vigilance.ctxSight.clearRect(0, 0, 512, 512)
     Vigilance.instances
       .filter(vg => vg.props.start)
       .forEach(vg => {
@@ -156,14 +159,14 @@ const game = {
       }
     }
 
-    Vigilance.ctx.beginPath()
+    Vigilance.ctxSight.beginPath()
     sombra.forEach((val, index) => {
       if (val === 0) return
-      Vigilance.ctx.rect((index % 32) * 16, Math.floor(index / 32) * 16, 16, 16)
+      Vigilance.ctxSight.rect((index % 32) * 16, Math.floor(index / 32) * 16, 16, 16)
     })
-    Vigilance.ctx.fillStyle = `${this.palette[11]}66`
-    Vigilance.ctx.fill()
-    Vigilance.ctx.closePath()
+    Vigilance.ctxSight.fillStyle = `${this.palette[11]}66`
+    Vigilance.ctxSight.fill()
+    Vigilance.ctxSight.closePath()
   },
   setSight () {
     if (noShadows) return

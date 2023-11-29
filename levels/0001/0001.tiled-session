@@ -25,7 +25,7 @@
                 13
             ],
             "scale": 1.38974609375,
-            "selectedLayer": 8,
+            "selectedLayer": 9,
             "viewCenter": {
                 "x": 233.13611130630312,
                 "y": 225.22099641627435
@@ -53,8 +53,8 @@
     "project": "0001.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "map.json",
         "map.tmx",
+        "map.json",
         "paleta.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",

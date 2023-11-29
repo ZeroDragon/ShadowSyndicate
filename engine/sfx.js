@@ -109,13 +109,13 @@ const tableOfFreq = {
   B8: 7902.13
 }
 const audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext)()
-const beep = (duration, frequency, type = 'triangle') => {
+const beep = (duration, frequency, type = 'triangle', volume) => {
   const noteLength = duration / 1000
   const oscillator = audioCtx.createOscillator()
   const gainNode = audioCtx.createGain()
   gainNode.connect(audioCtx.destination)
   const attackTime = 0.01
-  const sustainLevel = 0.1
+  const sustainLevel = volume
   const releaseTime = 0.4
   gainNode.gain.setValueAtTime(0, 0)
   gainNode.gain.linearRampToValueAtTime(sustainLevel, audioCtx.currentTime + noteLength * attackTime)
@@ -129,10 +129,10 @@ const beep = (duration, frequency, type = 'triangle') => {
 }
 
 // eslint-disable-next-line no-unused-vars
-const playNote = ([note, ...notes]) => {
+const playNote = ([note, ...notes], volume = 0.1) => {
   if (!note) return
   const [duration, frequency] = note
-  beep(duration, frequency)
+  beep(duration, frequency, 'triangle', volume)
   const timer = setTimeout(() => {
     clearTimeout(timer)
     playNote(notes)

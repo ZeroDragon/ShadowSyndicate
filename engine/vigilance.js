@@ -10,6 +10,7 @@ class Vigilance {
   }
 
   static ctx = document.getElementById('vigilance').getContext('2d')
+  static ctxSight = document.getElementById('light').getContext('2d')
 
   static getCamera (id) {
     return Vigilance.instances.find(itm => itm.id === id)
@@ -82,6 +83,7 @@ class Vigilance {
     if (next.x === this.position.x && next.y === this.position.y) {
       this.id = next.id
     }
+    this.step = !this.step
     this.draw()
   }
 

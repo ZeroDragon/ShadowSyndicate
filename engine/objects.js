@@ -152,6 +152,7 @@ class Obj {
       this.combination = [
         ...new Array(Math.round(Math.random() * 5) + 5)
       ].map(_ => Math.round(Math.random() * 5) + 1)
+      this.combination[0] = Math.max(2, this.combination[0])
     }
     if (this.combinationStep === 0) {
       this.combinationStep += 1
@@ -173,21 +174,21 @@ class Obj {
     } else {
       this.combinationFailed = true
       this.combinationSuccess = false
-      playNote(createSoundMap(['G4'], [60]))
+      playNote(createSoundMap(['E4', '', 'A3'], [60, 200, 250]), 0.4)
       return
     }
 
     if (this.combination[this.combinationStep] - this.combinationTicks === 0) {
       this.combinationStep += 1
       this.combinationTicks = 0
-      if (this.combination[this.combinationStep]) playNote(createSoundMap(['A3'], [60]))
+      if (this.combination[this.combinationStep]) playNote(createSoundMap(['A3'], [60]), 0.4)
     } else {
-      playNote(createSoundMap(['A2'], [60]))
+      playNote(createSoundMap(['A2'], [60]), 0.4)
     }
 
     if (!this.combination[this.combinationStep]) {
       this.combinationSuccess = true
-      playNote(createSoundMap(['G5', ' ', 'A5'], [50, 50, 50]))
+      playNote(createSoundMap(['G5', ' ', 'A5'], [50, 50, 50]), 0.4)
     }
   }
 }

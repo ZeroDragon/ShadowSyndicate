@@ -106,8 +106,8 @@ const setPalette = tileset => {
 }
 
 const preload = level => {
-  // Player.create(ctxPlayer1, 280, 160, true)
-  Player.create(ctxPlayer1, -8, 0, true)
+  Player.create(ctxPlayer1, 280, 160, true)
+  // Player.create(ctxPlayer1, -8, 0, true)
   Player.create(ctxPlayer2, -8, 32)
   fetch(`${level}/map.json`)
     .then(response => response.json())
@@ -149,7 +149,7 @@ const preload = level => {
               )
             })
           })
-        // game.ticker()
+        // game.ticker() // inicia animaciones
       }
       tileset.src = `${level}/${tileSource.value}`
     })
