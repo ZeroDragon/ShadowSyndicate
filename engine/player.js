@@ -66,7 +66,6 @@ class Player {
         (relative === 'up' && this.movement === 'down') ||
         (relative === 'down' && this.movement === 'up')
       ) {
-        this.interactingWith.state = false
         this.interactingWith.reset()
         this.stance = 'standing'
         this.draw()

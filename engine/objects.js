@@ -1,4 +1,4 @@
-/* global Player, tileset, drawCollitions, game */
+/* global Player, tileset, drawCollitions, game playNote, createSoundMap */
 
 // eslint-disable-next-line no-unused-vars
 class Obj {
@@ -9,6 +9,10 @@ class Obj {
     })
     const proto = this.properties
     this.state = !!this.state
+    this.combinationStep = 0
+    this.combinationTicks = 0
+    this.combinationFailed = false
+    this.combinationSuccess = false
     this.col = {
       x: this.x + proto.col.x,
       y: this.y + proto.col.y,
@@ -133,10 +137,57 @@ class Obj {
   }
 
   changeConditions () {
-    console.log('changeConditions', this)
+    if (this[this.type]) this[this.type]()
   }
 
   reset () {
-    console.log('reset', this)
+    this.combinationStep = 0
+    this.combinationTicks = 0
+    this.combinationFailed = false
+  }
+
+  safe () {
+    if (this.combinationFailed) return
+    if (!this.combination) {
+      this.combination = [
+        ...new Array(Math.round(Math.random() * 5) + 5)
+      ].map(_ => Math.round(Math.random() * 5) + 1)
+    }
+    if (this.combinationStep === 0) {
+      this.combinationStep += 1
+      return
+    }
+    const ply = Player.getCurrent()
+    const direction = ['left', 'right'][this.combinationStep % 2]
+
+    if (ply.movement === 'up' && this.combinationSuccess && this.combinationStep !== 1) {
+      this.setState(true)
+      this.draw()
+      return
+    }
+
+    if (this.combinationSuccess && this.state) return
+
+    if (direction === ply.movement) {
+      this.combinationTicks += 1
+    } else {
+      this.combinationFailed = true
+      this.combinationSuccess = false
+      playNote(createSoundMap(['G4'], [60]))
+      return
+    }
+
+    if (this.combination[this.combinationStep] - this.combinationTicks === 0) {
+      this.combinationStep += 1
+      this.combinationTicks = 0
+      if (this.combination[this.combinationStep]) playNote(createSoundMap(['A3'], [60]))
+    } else {
+      playNote(createSoundMap(['A2'], [60]))
+    }
+
+    if (!this.combination[this.combinationStep]) {
+      this.combinationSuccess = true
+      playNote(createSoundMap(['G5', ' ', 'A5'], [50, 50, 50]))
+    }
   }
 }

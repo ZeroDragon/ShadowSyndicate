@@ -16,8 +16,12 @@ const userKeys = {
 const tileset = new Image()
 let throttler = -Infinity
 let interval
-
+let started = false
 document.addEventListener('keydown', ({ keyCode }) => {
+  if (!started) {
+    game.ticker()
+    started = true
+  }
   eventsTrigger(keyCode)
 })
 
@@ -98,8 +102,8 @@ const setPalette = tileset => {
 }
 
 const preload = level => {
-  Player.create(ctxPlayer1, 280, 160, true)
-  // Player.create(ctxPlayer1, -8, 0, true)
+  // Player.create(ctxPlayer1, 280, 160, true)
+  Player.create(ctxPlayer1, -8, 0, true)
   Player.create(ctxPlayer2, -8, 32)
   fetch(`${level}/map.json`)
     .then(response => response.json())
@@ -141,7 +145,7 @@ const preload = level => {
               )
             })
           })
-        game.ticker()
+        // game.ticker()
       }
       tileset.src = `${level}/${tileSource.value}`
     })
