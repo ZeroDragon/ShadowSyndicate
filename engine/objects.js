@@ -140,7 +140,6 @@ class Obj {
   }
 
   setState (value) {
-    console.log(value)
     if (this.type === 'fuse') {
       game.hasEnergy = !value
     }
@@ -158,11 +157,46 @@ class Obj {
       this.setState(false)
       this.draw()
     }
-    if (this.type === 'safe') {
+    if (this.type === 'safe' || this.type === 'computer') {
       this.combinationStep = 0
       this.combinationTicks = 0
       this.combinationFailed = false
       this.clearText()
+      ctxVfx.clearRect(this.x + 8, this.y + 4, 16, 8)
+    }
+  }
+
+  computer () {
+    const getNewDirection = (prev) => {
+      const directions = ['left', 'up', 'right']
+      let direction = prev
+      while (direction === prev) {
+        direction = directions[Math.floor(Math.random() * directions.length)]
+      }
+      return direction
+    }
+    if (!this.combination) {
+      this.combination = []
+      let prev = null
+      for (let x = 0; x <= 20; x++) {
+        const newDirection = getNewDirection(prev)
+        this.combination.push(newDirection)
+        prev = newDirection
+      }
+    }
+    this.computerDisplay()
+    if (this.combinationStep === 0) {
+      this.combinationStep += 1
+      this.computerDisplay()
+      return
+    }
+    const ply = Player.getCurrent()
+    const direction = this.combination[this.combinationStep]
+    if (direction === ply.movement) {
+      console.log('bien')
+      this.combinationStep += 1
+    } else {
+      console.log('mal')
     }
   }
 
@@ -236,6 +270,28 @@ class Obj {
       displayText(this.combination, this.combinationStep, this)
       playNote(createSoundMap(['G5', ' ', 'A5'], [50, 50, 50]), 0.4)
     }
+  }
+
+  computerDisplay () {
+    console.log(this.combinationStep, this.combination[this.combinationStep])
+    ctxVfx.clearRect(this.x + 8, this.y + 4, 16, 8)
+
+    ctxVfx.beginPath()
+    ctxVfx.fillStyle = game.palette[3]
+    ctxVfx.rect(this.x + 8, this.y + 4, 16, 8)
+    ctxVfx.fill()
+    ctxVfx.closePath()
+
+    ctxVfx.beginPath()
+    ctxVfx.fillStyle = game.palette[5]
+    const displayDirection = {
+      up: [this.x + 12, this.y + 4, 8, 4],
+      left: [this.x + 8, this.y + 4, 4, 8],
+      right: [this.x + 20, this.y + 4, 4, 8]
+    }[this.combination[this.combinationStep]]
+    ctxVfx.rect(...displayDirection)
+    ctxVfx.fill()
+    ctxVfx.closePath()
   }
 
   clearText () {

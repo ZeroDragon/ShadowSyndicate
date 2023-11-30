@@ -374,6 +374,7 @@
     <property name="constraints" value="[&quot;up&quot;, &quot;down&quot;]"/>
     <property name="false" value="{ &quot;x&quot;: 64, &quot;y&quot;: 272 }"/>
     <property name="restrictFrom" value="[&quot;left&quot;, &quot;right&quot;]"/>
+    <property name="returnState" type="bool" value="true"/>
     <property name="true" value="{ &quot;x&quot;: 64, &quot;y&quot;: 272 }"/>
    </properties>
   </object>
