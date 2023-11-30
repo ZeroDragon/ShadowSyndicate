@@ -370,11 +370,11 @@
   <object id="79" name="computer" type="prototype" x="128" y="-48" width="16" height="16">
    <properties>
     <property name="changeConditions" type="bool" value="true"/>
-    <property name="col" value="{ &quot;x&quot;: 8, &quot;y&quot;: 16, &quot;w&quot;: 16, &quot;h&quot;: 16 }"/>
+    <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 16, &quot;w&quot;: 16, &quot;h&quot;: 16 }"/>
     <property name="constraints" value="[&quot;up&quot;, &quot;down&quot;]"/>
     <property name="false" value="{ &quot;x&quot;: 64, &quot;y&quot;: 272 }"/>
     <property name="restrictFrom" value="[&quot;left&quot;, &quot;right&quot;]"/>
-    <property name="returnState" type="bool" value="true"/>
+    <property name="returnState" type="bool" value="false"/>
     <property name="true" value="{ &quot;x&quot;: 64, &quot;y&quot;: 272 }"/>
    </properties>
   </object>

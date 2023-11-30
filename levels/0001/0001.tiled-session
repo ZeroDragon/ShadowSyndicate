@@ -25,9 +25,9 @@
                 13
             ],
             "scale": 1.38974609375,
-            "selectedLayer": 9,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 233.13611130630312,
+                "x": 737.5447965708664,
                 "y": 225.22099641627435
             }
         },
@@ -51,7 +51,7 @@
     "openFiles": [
     ],
     "project": "0001.tiled-project",
-    "property.type": "string",
+    "property.type": "int",
     "recentFiles": [
         "map.tmx",
         "map.json",

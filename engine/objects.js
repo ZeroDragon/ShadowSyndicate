@@ -102,7 +102,7 @@ class Obj {
     }
 
     if (obj.properties.changeConditions) return obj.changeConditions()
-    obj.setState(true)
+    if (!obj.state) obj.setState(true)
     obj.draw()
     return false
   }
@@ -143,13 +143,41 @@ class Obj {
     if (this.type === 'fuse') {
       game.hasEnergy = !value
     }
+    if (!this.state && value) {
+      if (['computer', 'safe', 'statue'].includes(this.type)) this.success()
+    }
     this.state = value
-    if (this.type === 'statue') this.statue()
     game.triggerSight()
   }
 
   changeConditions () {
     if (this[this.type]) this[this.type]()
+  }
+
+  success () {
+    const tableOfValues = {
+      computer: [
+        ['Cat Pictures', 1],
+        ['Blackmail evidence', 1000],
+        ['Confidential documents', 2000]
+      ],
+      safe: [
+        ['Some cash', 500],
+        ['Good cash', 1000],
+        ['Very good cash', 1500],
+        ['Confidential documents', 2000],
+        ['Diamonds', 3000]
+      ],
+      statue: [
+        ['Valuable statue', 100],
+        ['Limited edition figure', 300],
+        ['Action figure', 70],
+        ['Collectable toy', 80]
+      ]
+    }
+    const set = tableOfValues[this.type]
+    if (!game.loot) game.loot = []
+    game.loot.push(set[Math.floor(Math.random() * set.length - 1)])
   }
 
   reset () {
@@ -161,8 +189,13 @@ class Obj {
       this.combinationStep = 0
       this.combinationTicks = 0
       this.combinationFailed = false
+      this.booting = false
       this.clearText()
       ctxVfx.clearRect(this.x + 8, this.y + 4, 16, 8)
+      if (this.type === 'computer') {
+        playNote(createSoundMap(['E4', 'G3'], [60, 100]), 0.4)
+        if (this.bootingTime) clearTimeout(this.bootingTime)
+      }
     }
   }
 
@@ -178,26 +211,42 @@ class Obj {
     if (!this.combination) {
       this.combination = []
       let prev = null
-      for (let x = 0; x <= 20; x++) {
+      for (let x = 0; x <= 10; x++) {
         const newDirection = getNewDirection(prev)
         this.combination.push(newDirection)
         prev = newDirection
       }
     }
-    this.computerDisplay()
+    if (this.booting) return
     if (this.combinationStep === 0) {
-      this.combinationStep += 1
+      this.booting = true
       this.computerDisplay()
+      playNote(createSoundMap(['G3', 'E4'], [60, 100]), 0.4)
+      this.bootingTime = setTimeout(() => {
+        this.combinationStep += 1
+        this.computerDisplay()
+        this.booting = false
+      }, 1000)
       return
     }
     const ply = Player.getCurrent()
     const direction = this.combination[this.combinationStep]
-    if (direction === ply.movement) {
-      console.log('bien')
-      this.combinationStep += 1
-    } else {
-      console.log('mal')
+    if (!direction) {
+      this.combinationSuccess = true
+      this.computerDisplay()
+      ctxVfx.fillStyle = game.palette[1]
+      displayText('Computer hacked', this)
+      this.setState(true)
+      return
     }
+    if (this.combinationSuccess || this.combinationFailed) return
+    if (direction === ply.movement) {
+      this.combinationStep += 1
+      if (!this.combination[this.combinationStep]) return this.computer()
+    } else {
+      this.combinationFailed = true
+    }
+    this.computerDisplay()
   }
 
   statue () {
@@ -247,11 +296,11 @@ class Obj {
 
     if (direction === ply.movement) {
       this.combinationTicks += 1
-      displayText(this.combination, this.combinationStep, this)
+      displayCombination(this.combination, this.combinationStep, this)
     } else {
       this.combinationFailed = true
       this.combinationSuccess = false
-      displayText(this.combination, this.combinationStep, this)
+      displayCombination(this.combination, this.combinationStep, this)
       playNote(createSoundMap(['E4', '', 'A3'], [60, 200, 250]), 0.4)
       return
     }
@@ -259,7 +308,7 @@ class Obj {
     if (this.combination[this.combinationStep] - this.combinationTicks === 0) {
       this.combinationStep += 1
       this.combinationTicks = 0
-      displayText(this.combination, this.combinationStep, this)
+      displayCombination(this.combination, this.combinationStep, this)
       if (this.combination[this.combinationStep]) playNote(createSoundMap(['A3'], [60]), 0.4)
     } else {
       playNote(createSoundMap(['A2'], [60]), 0.4)
@@ -267,20 +316,31 @@ class Obj {
 
     if (!this.combination[this.combinationStep]) {
       this.combinationSuccess = true
-      displayText(this.combination, this.combinationStep, this)
+      displayCombination(this.combination, this.combinationStep, this)
       playNote(createSoundMap(['G5', ' ', 'A5'], [50, 50, 50]), 0.4)
     }
   }
 
   computerDisplay () {
-    console.log(this.combinationStep, this.combination[this.combinationStep])
     ctxVfx.clearRect(this.x + 8, this.y + 4, 16, 8)
 
     ctxVfx.beginPath()
-    ctxVfx.fillStyle = game.palette[3]
+    if (this.combinationStep === 0) {
+      ctxVfx.fillStyle = game.palette[3]
+    } else if (this.combinationFailed) {
+      ctxVfx.fillStyle = game.palette[4]
+    } else if (this.combinationSuccess) {
+      ctxVfx.fillStyle = game.palette[5]
+    } else {
+      ctxVfx.fillStyle = game.palette[3]
+    }
+
     ctxVfx.rect(this.x + 8, this.y + 4, 16, 8)
     ctxVfx.fill()
     ctxVfx.closePath()
+
+    if (this.combinationStep === 0) return
+    if (this.combinationFailed || this.combinationSuccess) return
 
     ctxVfx.beginPath()
     ctxVfx.fillStyle = game.palette[5]
@@ -297,12 +357,27 @@ class Obj {
   clearText () {
     if (this.textBound) {
       const bounds = this.textBound
-      ctxVfx.clearRect(bounds.x, bounds.y, bounds.w, bounds.h)
+      ctxVfx.clearRect(bounds.x - 1, bounds.y - 1, bounds.w + 2, bounds.h + 2)
     }
   }
 }
 
-const displayText = (combination, combinationStep, obj) => {
+const displayText = (text, obj, fadeOut = false) => {
+  obj.clearText()
+  ctxVfx.font = '10px "Press Start 2P"'
+  ctxVfx.textAlign = 'center'
+  ctxVfx.fillText(text, obj.x + obj.width / 2, obj.y)
+  const textSize = ctxVfx.measureText(text)
+  const height = Math.ceil(textSize.actualBoundingBoxAscent + textSize.actualBoundingBoxDescent) + 2
+  obj.textBound = {
+    y: obj.y - height,
+    w: textSize.width,
+    h: height,
+    x: obj.x + obj.width / 2 - (textSize.width / 2)
+  }
+}
+
+const displayCombination = (combination, combinationStep, obj) => {
   let text = new Array(combination.length - 1).fill('')
   text = text.map((_itm, key) => {
     if (key === combinationStep - 1) return '[*]'
@@ -315,19 +390,11 @@ const displayText = (combination, combinationStep, obj) => {
     }
     return `[${combination[key + 1]}]`
   }).filter(itm => itm !== '').join('')
-  obj.clearText()
-  ctxVfx.font = '10px "Press Start 2P"'
-  ctxVfx.textAlign = 'center'
   ctxVfx.fillStyle = game.palette[1]
-  if (obj.combinationSuccess) ctxVfx.fillStyle = game.palette[5]
-  if (obj.combinationFailed) ctxVfx.fillStyle = game.palette[4]
-  ctxVfx.fillText(text, obj.x, obj.y)
-  const textSize = ctxVfx.measureText(text)
-  const height = Math.ceil(textSize.actualBoundingBoxAscent + textSize.actualBoundingBoxDescent) + 2
-  obj.textBound = {
-    y: obj.y - height,
-    w: textSize.width,
-    h: height,
-    x: obj.x - (textSize.width / 2)
+  if (obj.combinationSuccess) {
+    ctxVfx.fillStyle = game.palette[1]
+    text = 'Safe unlocked'
   }
+  if (obj.combinationFailed) ctxVfx.fillStyle = game.palette[4]
+  displayText(text, obj)
 }
