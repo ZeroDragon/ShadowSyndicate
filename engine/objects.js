@@ -1,4 +1,4 @@
-/* global Player, tileset, drawCollitions, game playNote, createSoundMap */
+/* global Player, tileset, drawCollitions, game playNote, createSoundMap ctxVfx */
 
 // eslint-disable-next-line no-unused-vars
 class Obj {
@@ -144,23 +144,23 @@ class Obj {
     this.combinationStep = 0
     this.combinationTicks = 0
     this.combinationFailed = false
+    this.clearText()
   }
 
   safe () {
     if (this.combinationFailed) return
     if (!this.combination) {
       this.combination = [
-        ...new Array(Math.round(Math.random() * 5) + 5)
+        ...new Array(Math.round(Math.random() * (9 - 5) + 5))
       ].map(_ => Math.round(Math.random() * 5) + 1)
-      this.combination[0] = Math.max(2, this.combination[0])
+      this.combination[1] = Math.max(2, this.combination[1])
     }
     if (this.combinationStep === 0) {
       this.combinationStep += 1
       return
     }
-    const ply = Player.getCurrent()
     const direction = ['left', 'right'][this.combinationStep % 2]
-
+    const ply = Player.getCurrent()
     if (ply.movement === 'up' && this.combinationSuccess && this.combinationStep !== 1) {
       this.setState(true)
       this.draw()
@@ -171,9 +171,11 @@ class Obj {
 
     if (direction === ply.movement) {
       this.combinationTicks += 1
+      displayText(this.combination, this.combinationStep, this)
     } else {
       this.combinationFailed = true
       this.combinationSuccess = false
+      displayText(this.combination, this.combinationStep, this)
       playNote(createSoundMap(['E4', '', 'A3'], [60, 200, 250]), 0.4)
       return
     }
@@ -181,6 +183,7 @@ class Obj {
     if (this.combination[this.combinationStep] - this.combinationTicks === 0) {
       this.combinationStep += 1
       this.combinationTicks = 0
+      displayText(this.combination, this.combinationStep, this)
       if (this.combination[this.combinationStep]) playNote(createSoundMap(['A3'], [60]), 0.4)
     } else {
       playNote(createSoundMap(['A2'], [60]), 0.4)
@@ -188,7 +191,45 @@ class Obj {
 
     if (!this.combination[this.combinationStep]) {
       this.combinationSuccess = true
+      displayText(this.combination, this.combinationStep, this)
       playNote(createSoundMap(['G5', ' ', 'A5'], [50, 50, 50]), 0.4)
     }
+  }
+
+  clearText () {
+    if (this.textBound) {
+      const bounds = this.textBound
+      ctxVfx.clearRect(bounds.x, bounds.y, bounds.w, bounds.h)
+    }
+  }
+}
+
+const displayText = (combination, combinationStep, obj) => {
+  let text = new Array(combination.length - 1).fill('')
+  text = text.map((_itm, key) => {
+    if (key === combinationStep - 1) return '[*]'
+    if (key >= combinationStep - 1) {
+      // maybe dificulty ?
+      // const direction = ['>', '<'][key % 2]
+      // return `[${direction}]`
+      // return '[*]'
+      return ''
+    }
+    return `[${combination[key + 1]}]`
+  }).filter(itm => itm !== '').join('')
+  obj.clearText()
+  ctxVfx.font = '10px "Press Start 2P"'
+  ctxVfx.textAlign = 'center'
+  ctxVfx.fillStyle = game.palette[1]
+  if (obj.combinationSuccess) ctxVfx.fillStyle = game.palette[5]
+  if (obj.combinationFailed) ctxVfx.fillStyle = game.palette[4]
+  ctxVfx.fillText(text, obj.x, obj.y)
+  const textSize = ctxVfx.measureText(text)
+  const height = Math.ceil(textSize.actualBoundingBoxAscent + textSize.actualBoundingBoxDescent) + 2
+  obj.textBound = {
+    y: obj.y - height,
+    w: textSize.width,
+    h: height,
+    x: obj.x - (textSize.width / 2)
   }
 }

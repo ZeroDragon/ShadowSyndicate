@@ -2,6 +2,9 @@
   <head>
     <title>Sneaky</title>
     <meta name="viewport" content="width=550, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
       * {
         touch-action: manipulation;
@@ -10,7 +13,7 @@
         background-color: #222;
         box-sizing: border-box;
         color: #fff;
-        font-family: sans-serif;
+        font-family: "Press Start 2P", sans-serif;
         -webkit-touch-callout: none;
         -webkit-tap-highlight-color: transparent;
         -moz-user-select: -moz-none;
@@ -20,6 +23,9 @@
       }
       canvas {
         position: absolute;
+      }
+      .text {
+        padding: 20px 40px;
       }
       .gameHolder {
         position: relative;
@@ -125,6 +131,7 @@
       <canvas id="player2" width="512px" height="512px"></canvas>
       <canvas id="overlayer" width="512px" height="512px"></canvas>
       <canvas id="sight" width="512px" height="512px"></canvas>
+      <canvas id="vfx" width="512px" height="512px"></canvas>
     </section>
     <section class="controls">
       <section class="cross">
@@ -139,48 +146,50 @@
       </section>
     </section>
     <hr />
-    - Touch controls only works on mobile devices<br />
-    <br />
-    Keyboard controls: <br />
-    - Move with WASD <br />
-    - Use "shift" to switch between robbers <br />
-    <br />
-    TO DO:
-    <ol>
-      <li>Interactive objects (steal stuff)</li>
-      <li>If player steps on light, that triggers the alarm</li>
-      <li>Being able to scape from the game area</li>
-      <li>If too close to a guard, user is captured</li>
-      <li>Scenes</li>
-        <ul>
-          <li>Level selector</li>
-          <li>Progression</li>
-          <li>Scene completion</li>
-          <li>Game over</li>
-        </ul>
-      <li>SFX</li>
-      <li>VFX</li>
-      <li>Multiplayer support</li>
-    </ol>
+    <section class="text">
+      - Touch controls only works on mobile devices<br />
+      <br />
+      Keyboard controls: <br />
+      - Move with WASD <br />
+      - Use "shift" to switch between robbers <br />
+      <br />
+      TO DO:
+      <ol>
+        <li>Interactive objects (steal stuff)</li>
+        <li>If player steps on light, that triggers the alarm</li>
+        <li>Being able to scape from the game area</li>
+        <li>If too close to a guard, user is captured</li>
+        <li>Scenes</li>
+          <ul>
+            <li>Level selector</li>
+            <li>Progression</li>
+            <li>Scene completion</li>
+            <li>Game over</li>
+          </ul>
+        <li>SFX</li>
+        <li>VFX</li>
+        <li>Multiplayer support</li>
+      </ol>
 
-    DONE:
-    <ol class="done" reversed>
-      <li>Initial SFX</li>
-      <li>Safe can be opened</li>
-      <li>Cameras can be desabled now</li>
-      <li>Touch controls</li>
-      <li>Cameras with line of sight</li>
-      <li>Guards line of sight</li>
-      <li>Guards</li>
-      <li>Robber's line of sight</li>
-      <li>Switch between characters</li>
-      <li>Draw second character</li>
-      <li>Interactive doors and windows</li>
-      <li>Collitions with map</li>
-      <li>Draw player and be able to move</li>
-      <li>Draw map</li>
-      <li>Use tileset maps</li>
-    </ol>
+      DONE:
+      <ol class="done" reversed>
+        <li>Initial SFX</li>
+        <li>Safe can be opened</li>
+        <li>Cameras can be desabled now</li>
+        <li>Touch controls</li>
+        <li>Cameras with line of sight</li>
+        <li>Guards line of sight</li>
+        <li>Guards</li>
+        <li>Robber's line of sight</li>
+        <li>Switch between characters</li>
+        <li>Draw second character</li>
+        <li>Interactive doors and windows</li>
+        <li>Collitions with map</li>
+        <li>Draw player and be able to move</li>
+        <li>Draw map</li>
+        <li>Use tileset maps</li>
+      </ol>
+    </section>
     <script src="engine/objects.js"></script>
     <script src="engine/game.js"></script>
     <script src="engine/player.js"></script>

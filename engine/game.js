@@ -2,7 +2,10 @@
 const ctxSight = document.getElementById('sight').getContext('2d')
 
 // eslint-disable-next-line no-unused-vars
-const [drawCollitions, noShadows, noSounds] = [true, true, true]
+const ctxVfx = document.getElementById('vfx').getContext('2d')
+
+// eslint-disable-next-line no-unused-vars
+const [drawCollitions, noShadows, noSounds] = [false, false, false]
 // eslint-disable-next-line no-unused-vars
 const game = {
   objects: {},
