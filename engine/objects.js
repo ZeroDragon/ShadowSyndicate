@@ -82,7 +82,6 @@ class Obj {
       if (obj.properties.gateway) {
         ply.move({ x: ply.position.x + direction.x, y: ply.position.y + direction.y }, true)
       }
-
       if (obj.properties.returnState) {
         obj.setState(false)
         obj.draw()
@@ -141,10 +140,16 @@ class Obj {
   }
 
   reset () {
-    this.combinationStep = 0
-    this.combinationTicks = 0
-    this.combinationFailed = false
-    this.clearText()
+    if (this.properties.returnState) {
+      this.setState(false)
+      this.draw()
+    }
+    if (this.type === 'safe') {
+      this.combinationStep = 0
+      this.combinationTicks = 0
+      this.combinationFailed = false
+      this.clearText()
+    }
   }
 
   safe () {
