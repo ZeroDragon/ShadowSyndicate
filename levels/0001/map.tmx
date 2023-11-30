@@ -210,7 +210,7 @@
 0,0,0,0,27,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,
 0,0,0,0,27,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,
 0,0,0,0,27,0,0,0,0,0,0,0,0,0,0,0,0,27,0,27,0,0,0,0,27,0,27,0,0,0,0,0,
-0,0,0,0,27,0,0,0,0,0,0,0,0,0,0,0,0,27,0,0,0,0,0,0,0,0,27,0,0,0,0,0,
+0,0,0,0,27,0,0,0,0,0,0,0,0,0,0,0,0,27,0,27,0,0,0,0,27,0,27,0,0,0,0,0,
 0,27,27,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,27,0,0,0,27,27,
 0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,27,0,0,0,0,0,
 0,0,0,0,0,0,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,0,0,0,0,0,
@@ -360,7 +360,7 @@
   </object>
   <object id="78" name="statue" type="prototype" x="96" y="-16" width="16" height="16">
    <properties>
-    <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 16, &quot;w&quot;: 16, &quot;h&quot;: 16 }"/>
+    <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 0, &quot;w&quot;: 16, &quot;h&quot;: 32 }"/>
     <property name="false" value="{ &quot;x&quot;: 96, &quot;y&quot;: 272 }"/>
     <property name="golden" value="{&quot;x&quot;: 112, &quot;y&quot;: 272, &quot;w&quot;: 8, &quot;h&quot;: 12}"/>
     <property name="silver" value="{&quot;x&quot;: 112, &quot;y&quot;: 288, &quot;w&quot;: 8, &quot;h&quot;: 12}"/>
@@ -388,12 +388,12 @@
     <property name="true" value="{ &quot;x&quot;: 64, &quot;y&quot;: 304 }"/>
    </properties>
   </object>
-  <object id="81" type="statue" x="304" y="304" width="16" height="32">
+  <object id="81" type="statue" x="304" y="320" width="16" height="32">
    <properties>
     <property name="variant" value="golden"/>
    </properties>
   </object>
-  <object id="82" type="statue" x="384" y="304" width="16" height="32">
+  <object id="82" type="statue" x="384" y="320" width="16" height="32">
    <properties>
     <property name="variant" value="silver"/>
    </properties>
@@ -456,7 +456,7 @@
     <property name="start" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="66" type="guard" x="336" y="320" width="32" height="48">
+  <object id="66" type="guard" x="336" y="304" width="32" height="48">
    <properties>
     <property name="next" type="object" value="67"/>
     <property name="start" type="bool" value="false"/>
