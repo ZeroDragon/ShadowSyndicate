@@ -88,6 +88,15 @@
         top: 50px;
         left: 30px;
       }
+      .cross .square {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        left: 85px;
+        top: 95px;
+        background-color: #222;
+        pointer-events: none;
+      }
       .buttons, .meta {
         display: flex;
         justify-content: space-around;
@@ -139,6 +148,7 @@
         <div class="input right"></div>
         <div class="input down"></div>
         <div class="input left"></div>
+        <div class="square"></div>
       </section>
       <section class="buttons">
         <div class="input a" ></div>
@@ -173,6 +183,7 @@
 
       DONE:
       <ol class="done" reversed>
+        <li>Initial VFX</li>
         <li>Initial SFX</li>
         <li>Safe can be opened</li>
         <li>Cameras can be desabled now</li>

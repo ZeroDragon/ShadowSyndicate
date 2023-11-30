@@ -132,7 +132,11 @@ class Obj {
   }
 
   setState (value) {
+    if (this.type === 'fuse') {
+      game.hasEnergy = !value
+    }
     this.state = value
+    game.triggerSight()
   }
 
   changeConditions () {

@@ -1,4 +1,4 @@
-/* global tileset, Obj */
+/* global tileset, Obj, game */
 
 // eslint-disable-next-line no-unused-vars
 class Vigilance {
@@ -14,6 +14,16 @@ class Vigilance {
 
   static getCamera (id) {
     return Vigilance.instances.find(itm => itm.id === id)
+  }
+
+  static getActiveVigilance () {
+    return Vigilance.instances
+      .filter(vg => vg.props.start)
+      .filter(vg => {
+        if (vg.props.type === 'camera' && game.hasEnergy) return true
+        if (vg.props.type !== 'camera') return true
+        return false
+      })
   }
 
   static getAll () {

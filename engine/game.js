@@ -13,6 +13,7 @@ const game = {
   collitionMap: [],
   timer: null,
   stepValue: 0,
+  hasEnergy: true,
   ticker () {
     if (this.stepValue === 10) this.stepValue = 0
     this.stepValue += 1
@@ -23,8 +24,7 @@ const game = {
     if (this.timer) clearInterval(this.timer)
     Vigilance.ctx.clearRect(0, 0, 512, 512)
     Vigilance.ctxSight.clearRect(0, 0, 512, 512)
-    Vigilance.instances
-      .filter(vg => vg.props.start)
+    Vigilance.getActiveVigilance()
       .forEach(vg => {
         vg.frame()
         this.generateSight(vg)
@@ -32,6 +32,10 @@ const game = {
     this.timer = setInterval(() => {
       this.ticker()
     }, 800)
+  },
+  triggerSight () {
+    Vigilance.ctxSight.clearRect(0, 0, 512, 512)
+    Vigilance.getActiveVigilance().forEach(vg => { this.generateSight(vg) })
   },
   computePosition (x, y) {
     const computed = { x: Math.floor(x / 16) + 2, y: Math.ceil(y / 16) + 2 }

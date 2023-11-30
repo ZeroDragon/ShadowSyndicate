@@ -106,7 +106,7 @@ const setPalette = tileset => {
 }
 
 const preload = level => {
-  Player.create(ctxPlayer1, 136, 464, true)
+  Player.create(ctxPlayer1, 72, 240, true)
   // Player.create(ctxPlayer1, -8, 0, true)
   Player.create(ctxPlayer2, -8, 32)
   fetch(`${level}/map.json`)
