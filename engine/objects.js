@@ -36,6 +36,13 @@ class Obj {
 
   static addObject (obj) {
     if (!obj.properties) obj.properties = {}
+    if (Array.isArray(obj.properties)) {
+      const tmpProps = {}
+      obj.properties.forEach(({ name, value }) => {
+        tmpProps[name] = value
+      })
+      obj.properties = tmpProps
+    }
     Obj.prototypes.find(prot => prot.name === obj.type).properties
       .forEach(({ name, value }) => {
         obj.properties[name] = JSON.parse(value)
@@ -119,6 +126,7 @@ class Obj {
       this.width, // destination width
       this.height // destination height
     )
+    if (this.type === 'statue') this.statue()
     if (drawCollitions) {
       // draw collition on object
       this.ctx.rect(
@@ -132,10 +140,12 @@ class Obj {
   }
 
   setState (value) {
+    console.log(value)
     if (this.type === 'fuse') {
       game.hasEnergy = !value
     }
     this.state = value
+    if (this.type === 'statue') this.statue()
     game.triggerSight()
   }
 
@@ -154,6 +164,29 @@ class Obj {
       this.combinationFailed = false
       this.clearText()
     }
+  }
+
+  statue () {
+    const proto = this.properties
+    const source = proto[proto.variant]
+    this.ctx.clearRect(
+      this.x + 4,
+      this.y - 4,
+      source.w,
+      source.h
+    )
+    if (this.state) return
+    this.ctx.drawImage(
+      tileset,
+      source.x, // source x
+      source.y, // source y
+      source.w, // source width
+      source.h, // source height
+      this.x + 4, // desination x
+      this.y - 4, // destination y
+      source.w, // destination width
+      source.h // destination height
+    )
   }
 
   safe () {
