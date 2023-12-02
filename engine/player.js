@@ -1,4 +1,4 @@
-/* global game, drawCollitions, tileset, Obj */
+/* global game, drawCollitions, tileset, Obj, ctxVfx */
 
 // eslint-disable-next-line no-unused-vars
 class Player {
@@ -11,6 +11,8 @@ class Player {
     this.ctx = ctx
     this.playerScaped = false
     this.freezed = false
+    this.properties = { foundMessage: 'Intruder found!' }
+    this.clearText = () => Player.clearText(this)
     if (!Player.instances) Player.instances = []
     Player.instances.push(this)
   }
@@ -21,6 +23,13 @@ class Player {
 
   static getCurrent () {
     return Player.instances.find(player => player.active)
+  }
+
+  static clearText (obj) {
+    if (obj.textBound) {
+      const bounds = obj.textBound
+      ctxVfx.clearRect(bounds.x - 1, bounds.y - 1, bounds.w + 2, bounds.h + 2)
+    }
   }
 
   setBound () {
@@ -56,11 +65,11 @@ class Player {
         clearInterval(game.timer)
       }
     }
+    return this.playerScaped
   }
 
   move ({ x = this.position.x, y = this.position.y }, jump = false) {
     if (game.gameOver || this.playerScaped || this.freezed) return
-    if (this.scaped(x, y)) return
     this.movement = 'up'
     if (x - this.position.x > 0) this.movement = 'right'
     if (x - this.position.x < 0) this.movement = 'left'
@@ -98,13 +107,17 @@ class Player {
 
     const computed = game.computePosition(x, y + 16)
     if (!jump) {
+      if (this.scaped(x, y)) return
       if (computed.x < 1 || computed.x > 32 || computed.y < 2 || computed.y > 32) return
       if (Obj.activateObject(x, y)) return
       if (game.collitionMap[computed.collitionIndex] !== 0) return
     }
     this.position.x = x
     this.position.y = y
-    game.testTrigger(computed.collitionIndex)
+    this.x = x
+    this.y = y
+    this.width = this.bound.w
+    game.testTrigger(computed.collitionIndex, this)
     game.testHalt(computed.collitionIndex)
     this.draw()
   }

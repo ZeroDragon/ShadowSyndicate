@@ -461,9 +461,19 @@
                          "value":"{ \"x\": 0, \"y\": 16, \"w\": 16, \"h\": 16 }"
                         }, 
                         {
+                         "name":"detection",
+                         "type":"string",
+                         "value":"{ \"x\": -16, \"y\": 0, \"w\": 48, \"h\": 16 }"
+                        }, 
+                        {
                          "name":"false",
                          "type":"string",
                          "value":"{ \"x\": 112, \"y\": 64 }"
+                        }, 
+                        {
+                         "name":"foundMessage",
+                         "type":"string",
+                         "value":"\"Window broken!\""
                         }, 
                         {
                          "name":"gateway",
@@ -498,9 +508,19 @@
                          "value":"[\"up\", \"down\"]"
                         }, 
                         {
+                         "name":"detection",
+                         "type":"string",
+                         "value":"{ \"x\": 0, \"y\": -16, \"w\": 16, \"h\": 64 }"
+                        }, 
+                        {
                          "name":"false",
                          "type":"string",
                          "value":"{ \"x\": 80, \"y\": 32 }"
+                        }, 
+                        {
+                         "name":"foundMessage",
+                         "type":"string",
+                         "value":"\"Door opened!\""
                         }, 
                         {
                          "name":"gateway",
@@ -666,6 +686,11 @@
                          "value":"{ \"x\": 0, \"y\": 272 }"
                         }, 
                         {
+                         "name":"foundMessage",
+                         "type":"string",
+                         "value":"\"Safe opened!\""
+                        }, 
+                        {
                          "name":"interactive",
                          "type":"bool",
                          "value":true
@@ -701,6 +726,11 @@
                          "name":"false",
                          "type":"string",
                          "value":"{ \"x\": 96, \"y\": 272 }"
+                        }, 
+                        {
+                         "name":"foundMessage",
+                         "type":"string",
+                         "value":"\"Statue stolen!\""
                         }, 
                         {
                          "name":"golden",
@@ -757,7 +787,7 @@
                         {
                          "name":"returnState",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"true",

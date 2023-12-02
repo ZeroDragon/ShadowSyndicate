@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-/* global Player, Vigilance createSoundMap, playNote, foundSFX, siren, ctxBg */
+/* global Player, Vigilance createSoundMap, playNote, foundSFX, siren, ctxBg, Obj */
 const ctxSight = document.getElementById('sight').getContext('2d')
 const ctxVfx = document.getElementById('vfx').getContext('2d')
-const [drawCollitions, noShadows, noSounds] = [false, true, true]
+const [drawCollitions, noShadows, noSounds] = [true, true, true]
 const game = {
   objects: {},
   insideMap: [],
@@ -35,8 +35,34 @@ const game = {
     Player.instances.forEach(pl => {
       const { x, y } = pl.position
       const computed = game.computePosition(x, y + 16)
-      this.testTrigger(computed.collitionIndex)
+      this.testTrigger(computed.collitionIndex, pl)
     })
+    Obj.instances
+      .filter(obj => obj.state === true)
+      .forEach(obj => {
+        const { x, y } = obj
+        let det = { x: 0, y: 0, w: obj.width, h: obj.height }
+        if (obj.properties.detection) det = obj.properties.detection
+        const computed = this.multupleComputePosition(
+          obj.x + det.x,
+          obj.y + det.y,
+          det.w,
+          det.h
+        )
+        ctxVfx.beginPath()
+        ctxVfx.strokeStyle = this.palette[4]
+        ctxVfx.rect(
+          obj.x + det.x,
+          obj.y + det.y,
+          det.w,
+          det.h
+        )
+        ctxVfx.stroke()
+        ctxVfx.closePath()
+        computed.forEach(({ collitionIndex }) => {
+          this.testTrigger(collitionIndex, obj)
+        })
+      })
     const delay = this.found ? 400 : 800
     const now = new Date().getTime()
     if (this.found && now - this.found > 5000 && !this.police) {
@@ -62,6 +88,15 @@ const game = {
   triggerSight () {
     Vigilance.ctxSight.clearRect(0, 0, 512, 512)
     Vigilance.getActiveVigilance().forEach(vg => { this.generateSight(vg) })
+  },
+  multupleComputePosition (x, y, w, h) {
+    const computed = new Set()
+    for (let xd = x; xd < x + w; xd += 16) {
+      for (let yd = y; yd < y + h; yd += 16) {
+        computed.add(this.computePosition(xd, yd))
+      }
+    }
+    return [...computed]
   },
   computePosition (x, y) {
     const computed = { x: Math.floor(x / 16) + 2, y: Math.ceil(y / 16) + 2 }
@@ -215,10 +250,13 @@ const game = {
       })
     }
   },
-  testTrigger (collitionIndex) {
+  testTrigger (collitionIndex, actioner) {
     if (this.alertTrigger[collitionIndex] && !this.found) {
       this.found = new Date().getTime()
       foundSFX()
+      ctxVfx.fillStyle = this.palette[1]
+      this.displayText(actioner.properties.foundMessage, actioner)
+      setTimeout(() => { actioner.clearText() }, 3000)
     }
   },
   testHalt (collitionIndex) {
@@ -238,10 +276,9 @@ const game = {
         this.found = new Date().getTime()
         foundSFX()
       }
-      this.displayText('Intruder found!', guard)
-      setTimeout(() => {
-        guard.clearText()
-      }, 3000)
+      ctxVfx.fillStyle = this.palette[1]
+      this.displayText('Intruder caught!', guard)
+      setTimeout(() => { guard.clearText() }, 3000)
     }
   },
   setSight () {
@@ -258,7 +295,6 @@ const game = {
   },
   displayText (text, obj) {
     obj.clearText()
-    ctxVfx.fillStyle = this.palette[1]
     ctxVfx.font = '10px "Press Start 2P"'
     ctxVfx.textAlign = 'center'
     ctxVfx.fillText(text, obj.x + obj.width / 2, obj.y)

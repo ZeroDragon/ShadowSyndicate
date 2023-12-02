@@ -308,7 +308,9 @@
   <object id="29" name="window" type="prototype" x="32" y="-16" width="16" height="16">
    <properties>
     <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 16, &quot;w&quot;: 16, &quot;h&quot;: 16 }"/>
+    <property name="detection" value="{ &quot;x&quot;: -16, &quot;y&quot;: 0, &quot;w&quot;: 48, &quot;h&quot;: 16 }"/>
     <property name="false" value="{ &quot;x&quot;: 112, &quot;y&quot;: 64 }"/>
+    <property name="foundMessage" value="&quot;Window broken!&quot;"/>
     <property name="gateway" type="bool" value="true"/>
     <property name="true" value="{ &quot;x&quot;: 112, &quot;y&quot;: 32 }"/>
    </properties>
@@ -317,7 +319,9 @@
    <properties>
     <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 0, &quot;w&quot;: 8, &quot;h&quot;: 20 }"/>
     <property name="constraints" value="[&quot;up&quot;, &quot;down&quot;]"/>
+    <property name="detection" value="{ &quot;x&quot;: 0, &quot;y&quot;: -16, &quot;w&quot;: 16, &quot;h&quot;: 64 }"/>
     <property name="false" value="{ &quot;x&quot;: 80, &quot;y&quot;: 32 }"/>
+    <property name="foundMessage" value="&quot;Door opened!&quot;"/>
     <property name="gateway" type="bool" value="true"/>
     <property name="returnState" type="bool" value="true"/>
     <property name="true" value="{ &quot;x&quot;: 48, &quot;y&quot;: 32 }"/>
@@ -353,6 +357,7 @@
     <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 16, &quot;w&quot;: 16, &quot;h&quot;: 16 }"/>
     <property name="constraints" value="[&quot;up&quot;, &quot;down&quot;]"/>
     <property name="false" value="{ &quot;x&quot;: 0, &quot;y&quot;: 272 }"/>
+    <property name="foundMessage" value="&quot;Safe opened!&quot;"/>
     <property name="interactive" type="bool" value="true"/>
     <property name="restrictFrom" value="[&quot;left&quot;, &quot;right&quot;]"/>
     <property name="true" value="{ &quot;x&quot;: 32, &quot;y&quot;: 272 }"/>
@@ -362,6 +367,7 @@
    <properties>
     <property name="col" value="{ &quot;x&quot;: 0, &quot;y&quot;: 0, &quot;w&quot;: 16, &quot;h&quot;: 32 }"/>
     <property name="false" value="{ &quot;x&quot;: 96, &quot;y&quot;: 272 }"/>
+    <property name="foundMessage" value="&quot;Statue stolen!&quot;"/>
     <property name="golden" value="{&quot;x&quot;: 112, &quot;y&quot;: 272, &quot;w&quot;: 8, &quot;h&quot;: 12}"/>
     <property name="silver" value="{&quot;x&quot;: 112, &quot;y&quot;: 288, &quot;w&quot;: 8, &quot;h&quot;: 12}"/>
     <property name="true" value="{ &quot;x&quot;: 96, &quot;y&quot;: 272 }"/>
@@ -374,7 +380,7 @@
     <property name="constraints" value="[&quot;up&quot;, &quot;down&quot;]"/>
     <property name="false" value="{ &quot;x&quot;: 64, &quot;y&quot;: 272 }"/>
     <property name="restrictFrom" value="[&quot;left&quot;, &quot;right&quot;]"/>
-    <property name="returnState" type="bool" value="false"/>
+    <property name="returnState" type="bool" value="true"/>
     <property name="true" value="{ &quot;x&quot;: 64, &quot;y&quot;: 272 }"/>
    </properties>
   </object>
