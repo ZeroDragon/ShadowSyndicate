@@ -1,6 +1,6 @@
 /* global Player, Vigilance, game, Obj */
-const canvas = document.getElementById('background')
-const ctxBg = canvas.getContext('2d')
+const ctxBg = document.getElementById('background').getContext('2d')
+const ctxFloor = document.getElementById('floor').getContext('2d')
 const ctxWalls = document.getElementById('walls').getContext('2d')
 const ctxPlayer1 = document.getElementById('player1').getContext('2d')
 const ctxPlayer2 = document.getElementById('player2').getContext('2d')
@@ -130,7 +130,7 @@ const preload = level => {
         map.layers
           .filter(layer => layer.visible && layer.type === 'tilelayer')
           .forEach(itm => {
-            let ctx = ctxBg
+            let ctx = ctxFloor
             if (itm.name === 'overlayer') ctx = ctxOver
             if (itm.name === 'walls') ctx = ctxWalls
             const data = itm.data

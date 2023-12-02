@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* global game */
 const tableOfFreq = {
   C0: 16.35,
   Db0: 17.32,
@@ -109,7 +111,7 @@ const tableOfFreq = {
   B8: 7902.13
 }
 const audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext)()
-const beep = (duration, frequency, type = 'triangle', volume) => {
+const beep = (duration, frequency, type, volume, second = false) => {
   const noteLength = duration / 1000
   const oscillator = audioCtx.createOscillator()
   const gainNode = audioCtx.createGain()
@@ -123,19 +125,24 @@ const beep = (duration, frequency, type = 'triangle', volume) => {
   gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + noteLength)
   oscillator.type = type
   oscillator.frequency.setValueAtTime(frequency, 0)
+  if (second) {
+    oscillator.frequency.linearRampToValueAtTime(
+      second, audioCtx.currentTime + noteLength
+    )
+  }
   oscillator.start(0)
   oscillator.stop(audioCtx.currentTime + noteLength)
   oscillator.connect(gainNode)
 }
 
 // eslint-disable-next-line no-unused-vars
-const playNote = ([note, ...notes], volume = 0.1) => {
+const playNote = ([note, ...notes], volume = 0.1, type = 'triangle') => {
   if (!note) return
   const [duration, frequency] = note
-  beep(duration, frequency, 'triangle', volume)
+  beep(duration, frequency, type, volume)
   const timer = setTimeout(() => {
     clearTimeout(timer)
-    playNote(notes)
+    playNote(notes, volume, type)
   }, duration)
 }
 
@@ -147,4 +154,15 @@ const createSoundMap = (frequencies, durations) => {
       tableOfFreq[note] || 0
     ]
   })
+}
+const foundSFX = _ => {
+  playNote(createSoundMap(
+    ['Fb2', 'F2', 'Gb2', 'G2', 'Ab2', 'A2', 'Bb2', 'B2', 'Bb2', 'C3', 'Db3', 'D3'],
+    [40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160]
+  ), 0.1, 'square')
+}
+const siren = _ => {
+  if (game.gameOver) return
+  beep(1500, 523.25, 'triangle', 0.1, 880.00)
+  setTimeout(siren, 1500)
 }

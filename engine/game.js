@@ -1,19 +1,19 @@
-/* global Player, Vigilance createSoundMap, playNote */
+/* eslint-disable no-unused-vars */
+/* global Player, Vigilance createSoundMap, playNote, foundSFX, siren, ctxBg */
 const ctxSight = document.getElementById('sight').getContext('2d')
-
-// eslint-disable-next-line no-unused-vars
 const ctxVfx = document.getElementById('vfx').getContext('2d')
-
-// eslint-disable-next-line no-unused-vars
-const [drawCollitions, noShadows, noSounds] = [false, false, false]
-// eslint-disable-next-line no-unused-vars
+const [drawCollitions, noShadows, noSounds] = [true, true, false]
 const game = {
   objects: {},
   insideMap: [],
   collitionMap: [],
+  alertTrigger: [],
   timer: null,
   stepValue: 0,
   hasEnergy: true,
+  found: false,
+  police: false,
+  gameOver: false,
   ticker () {
     if (this.stepValue === 10) this.stepValue = 0
     this.stepValue += 1
@@ -24,14 +24,38 @@ const game = {
     if (this.timer) clearInterval(this.timer)
     Vigilance.ctx.clearRect(0, 0, 512, 512)
     Vigilance.ctxSight.clearRect(0, 0, 512, 512)
+    this.alertTrigger = new Array(1024).fill(0)
     Vigilance.getActiveVigilance()
       .forEach(vg => {
         vg.frame()
         this.generateSight(vg)
       })
+    Player.instances.forEach(pl => {
+      const { x, y } = pl.position
+      const computed = game.computePosition(x, y + 16)
+      this.testTrigger(computed.collitionIndex)
+    })
+    const delay = this.found ? 400 : 800
+    const now = new Date().getTime()
+    if (this.found && now - this.found > 5000 && !this.police) {
+      siren()
+      this.police = true
+    }
+    if (this.found && now - this.found > 15000 && !this.gameOver) {
+      this.gameOver = true
+      return clearInterval(this.timer)
+    }
+    if (this.police) {
+      ctxBg.beginPath()
+      const color = [game.palette[4], game.palette[3]][this.stepValue % 2]
+      ctxBg.fillStyle = color
+      ctxBg.rect(0, 0, 512, 512)
+      ctxBg.fill()
+      ctxBg.closePath()
+    }
     this.timer = setInterval(() => {
       this.ticker()
-    }, 800)
+    }, delay)
   },
   triggerSight () {
     Vigilance.ctxSight.clearRect(0, 0, 512, 512)
@@ -166,6 +190,8 @@ const game = {
       }
     }
 
+    game.setTriggers(sombra)
+
     Vigilance.ctxSight.beginPath()
     sombra.forEach((val, index) => {
       if (val === 0) return
@@ -174,6 +200,17 @@ const game = {
     Vigilance.ctxSight.fillStyle = `${this.palette[11]}66`
     Vigilance.ctxSight.fill()
     Vigilance.ctxSight.closePath()
+  },
+  setTriggers (light) {
+    light.forEach((value, key) => {
+      if (value) this.alertTrigger[key] = value
+    })
+  },
+  testTrigger (collitionIndex) {
+    if (this.alertTrigger[collitionIndex] && !this.found) {
+      this.found = new Date().getTime()
+      foundSFX()
+    }
   },
   setSight () {
     if (noShadows) return

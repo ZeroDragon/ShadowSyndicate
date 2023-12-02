@@ -31,6 +31,7 @@ class Player {
   }
 
   toggleActivation () {
+    if (game.gameOver) return
     this.draw()
     this.active = !this.active
     if (!this.active) return
@@ -43,6 +44,7 @@ class Player {
   }
 
   move ({ x = this.position.x, y = this.position.y }, jump = false) {
+    if (game.gameOver) return
     this.movement = 'up'
     if (x - this.position.x > 0) this.movement = 'right'
     if (x - this.position.x < 0) this.movement = 'left'
@@ -78,14 +80,15 @@ class Player {
     // we moved away, lets clear the object
     delete this.interactingWith
 
+    const computed = game.computePosition(x, y + 16)
     if (!jump) {
-      const computed = game.computePosition(x, y + 16)
       if (computed.x < 1 || computed.x > 32 || computed.y < 2 || computed.y > 32) return
       if (Obj.activateObject(x, y)) return
       if (game.collitionMap[computed.collitionIndex] !== 0) return
     }
     this.position.x = x
     this.position.y = y
+    game.testTrigger(computed.collitionIndex)
     this.draw()
   }
 
