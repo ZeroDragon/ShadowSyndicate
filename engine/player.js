@@ -9,6 +9,8 @@ class Player {
     this.stance = 'standing'
     this.active = active
     this.ctx = ctx
+    this.playerScaped = false
+    this.freezed = false
     if (!Player.instances) Player.instances = []
     Player.instances.push(this)
   }
@@ -32,8 +34,9 @@ class Player {
 
   toggleActivation () {
     if (game.gameOver) return
-    this.draw()
     this.active = !this.active
+    if (this.playerScaped) return
+    this.draw()
     if (!this.active) return
     const offset = this.position.flip ? 16 : 12
     this.ctx.beginPath()
@@ -43,8 +46,21 @@ class Player {
     this.ctx.closePath()
   }
 
+  scaped (x, y) {
+    if (x === -24 || x === 504 || y === -32 || y === 480) {
+      this.playerScaped = true
+      Player.instances.forEach(player => player.toggleActivation())
+      this.ctx.clearRect(0, 0, 512, 512)
+      if (!Player.instances.some(pl => !pl.playerScaped)) {
+        game.gameOver = true
+        clearInterval(game.timer)
+      }
+    }
+  }
+
   move ({ x = this.position.x, y = this.position.y }, jump = false) {
-    if (game.gameOver) return
+    if (game.gameOver || this.playerScaped || this.freezed) return
+    if (this.scaped(x, y)) return
     this.movement = 'up'
     if (x - this.position.x > 0) this.movement = 'right'
     if (x - this.position.x < 0) this.movement = 'left'
@@ -89,6 +105,7 @@ class Player {
     this.position.x = x
     this.position.y = y
     game.testTrigger(computed.collitionIndex)
+    game.testHalt(computed.collitionIndex)
     this.draw()
   }
 

@@ -11,7 +11,8 @@ const userKeys = {
   upKey: 87,
   rightKey: 68,
   downKey: 83,
-  aKey: 16
+  aKey: 'K'.charCodeAt(),
+  bKey: 'J'.charCodeAt()
 }
 const tileset = new Image()
 let throttler = -Infinity
@@ -72,6 +73,9 @@ const playerActions = (keyCode) => {
     case userKeys.aKey:
       Player.instances.forEach(player => player.toggleActivation())
       break
+    case userKeys.bKey:
+      Player.getCurrent().playerScaped = false
+      Player.getCurrent().draw()
   }
 }
 
@@ -149,7 +153,7 @@ const preload = level => {
               )
             })
           })
-        // game.ticker() // inicia animaciones
+        game.ticker() // inicia animaciones
       }
       tileset.src = `${level}/${tileSource.value}`
     })

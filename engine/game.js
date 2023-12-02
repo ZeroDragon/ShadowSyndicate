@@ -2,12 +2,13 @@
 /* global Player, Vigilance createSoundMap, playNote, foundSFX, siren, ctxBg */
 const ctxSight = document.getElementById('sight').getContext('2d')
 const ctxVfx = document.getElementById('vfx').getContext('2d')
-const [drawCollitions, noShadows, noSounds] = [true, true, false]
+const [drawCollitions, noShadows, noSounds] = [false, true, true]
 const game = {
   objects: {},
   insideMap: [],
   collitionMap: [],
   alertTrigger: [],
+  haltTrigger: [],
   timer: null,
   stepValue: 0,
   hasEnergy: true,
@@ -25,6 +26,7 @@ const game = {
     Vigilance.ctx.clearRect(0, 0, 512, 512)
     Vigilance.ctxSight.clearRect(0, 0, 512, 512)
     this.alertTrigger = new Array(1024).fill(0)
+    this.haltTrigger = new Array(1024).fill(0)
     Vigilance.getActiveVigilance()
       .forEach(vg => {
         vg.frame()
@@ -190,7 +192,7 @@ const game = {
       }
     }
 
-    game.setTriggers(sombra)
+    game.setTriggers({ type: 'light', value: sombra })
 
     Vigilance.ctxSight.beginPath()
     sombra.forEach((val, index) => {
@@ -201,15 +203,45 @@ const game = {
     Vigilance.ctxSight.fill()
     Vigilance.ctxSight.closePath()
   },
-  setTriggers (light) {
-    light.forEach((value, key) => {
-      if (value) this.alertTrigger[key] = value
-    })
+  setTriggers ({ type, value }) {
+    if (type === 'light') {
+      value.forEach((value, key) => {
+        if (value) this.alertTrigger[key] = value
+      })
+    }
+    if (type === 'halt') {
+      value.forEach((value, key) => {
+        if (value) this.haltTrigger[key] = value
+      })
+    }
   },
   testTrigger (collitionIndex) {
     if (this.alertTrigger[collitionIndex] && !this.found) {
       this.found = new Date().getTime()
       foundSFX()
+    }
+  },
+  testHalt (collitionIndex) {
+    if (this.haltTrigger[collitionIndex]) {
+      const player = Player.getCurrent()
+      player.freezed = true
+      const guard = Vigilance.getInteractingWith(Player.getCurrent())
+      guard.canMove = false
+      const { x: px, y: py } = player.bound
+      const { x: vx, y: vy } = guard.col
+
+      const deltaX = vx - px
+      const deltaY = vy - py
+      if (Math.abs(deltaX) > Math.abs(deltaY)) guard.direction = deltaX > 0 ? 'left' : 'right'
+      else guard.direction = deltaY > 0 ? 'up' : 'down'
+      if (!this.found) {
+        this.found = new Date().getTime()
+        foundSFX()
+      }
+      this.displayText('Intruder found!', guard)
+      setTimeout(() => {
+        guard.clearText()
+      }, 3000)
     }
   },
   setSight () {
@@ -223,5 +255,20 @@ const game = {
     players.forEach(pl => {
       this.generateShadow(this.computePosition(pl.x, pl.y).collitionIndex, pl)
     })
+  },
+  displayText (text, obj) {
+    obj.clearText()
+    ctxVfx.fillStyle = this.palette[1]
+    ctxVfx.font = '10px "Press Start 2P"'
+    ctxVfx.textAlign = 'center'
+    ctxVfx.fillText(text, obj.x + obj.width / 2, obj.y)
+    const textSize = ctxVfx.measureText(text)
+    const height = Math.ceil(textSize.actualBoundingBoxAscent + textSize.actualBoundingBoxDescent) + 2
+    obj.textBound = {
+      y: obj.y - height,
+      w: textSize.width,
+      h: height,
+      x: obj.x + obj.width / 2 - (textSize.width / 2)
+    }
   }
 }

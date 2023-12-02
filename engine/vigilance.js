@@ -1,16 +1,26 @@
-/* global tileset, Obj, game */
+/* global tileset, Obj, game, drawCollitions, ctxVfx */
 
 // eslint-disable-next-line no-unused-vars
 class Vigilance {
   constructor (item) {
     this.props = item
     this.position = { x: item.x, y: item.y }
+    this.canMove = true
+    this.width = this.props.width
+    this.clearText = () => Vigilance.clearText(this)
     if (!Vigilance.instances) Vigilance.instances = []
     Vigilance.instances.push(this)
   }
 
   static ctx = document.getElementById('vigilance').getContext('2d')
   static ctxSight = document.getElementById('light').getContext('2d')
+
+  static clearText (obj) {
+    if (obj.textBound) {
+      const bounds = obj.textBound
+      ctxVfx.clearRect(bounds.x - 1, bounds.y - 1, bounds.w + 2, bounds.h + 2)
+    }
+  }
 
   static getCamera (id) {
     return Vigilance.instances.find(itm => itm.id === id)
@@ -80,7 +90,62 @@ class Vigilance {
       })
   }
 
+  static calculateDistance (x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+  }
+
+  static getInteractingWith ({ bound }) {
+    const { x: px, y: py } = bound
+    let closest = null
+    let minDistance = Infinity
+    Vigilance.instances
+      .filter(vg => vg.props.type === 'guard')
+      .forEach(vg => {
+        const { x: vx, y: vy } = vg.col
+        const distance = Vigilance.calculateDistance(px, py, vx, vy)
+        if (distance < minDistance) {
+          minDistance = distance
+          closest = vg
+        }
+      })
+    return closest
+  }
+
+  captureRadius ({ x, y, w, h }) {
+    const filas = 32
+    const columnas = 32
+    const sombra = Array(filas * columnas).fill(0)
+
+    // Calcular las coordenadas de la matriz que cubre el elemento
+    const inicioFila = Math.max(0, Math.floor(y / 16))
+    const finFila = Math.min(filas, Math.ceil((y + h) / 16))
+    const inicioColumna = Math.max(0, Math.floor(x / 16))
+    const finColumna = Math.min(columnas, Math.ceil((x + w) / 16))
+
+    // Marcar las celdas correspondientes con 1
+    for (let i = inicioFila; i < finFila; i++) {
+      for (let j = inicioColumna; j < finColumna; j++) {
+        const indice = i * columnas + j
+        sombra[indice] = 1
+      }
+    }
+    game.setTriggers({ type: 'halt', value: sombra })
+    if (drawCollitions) {
+      Vigilance.ctxSight.beginPath()
+      sombra.forEach((val, index) => {
+        if (val === 0) return
+        Vigilance.ctxSight.rect((index % 32) * 16, Math.floor(index / 32) * 16, 16, 16)
+      })
+      Vigilance.ctxSight.fillStyle = `${game.palette[11]}66`
+      Vigilance.ctxSight.fill()
+      Vigilance.ctxSight.closePath()
+    }
+  }
+
   frame () {
+    this.x = this.position.x
+    this.y = this.position.y
+    if (!this.canMove) return this.draw()
     if (!this.id) this.id = this.props.id
     const pointer = Vigilance.chain.find(prop => prop.id === this.id)
     const next = Vigilance.chain.find(stop => stop.id === pointer.next) || {}
@@ -89,6 +154,9 @@ class Vigilance {
     if (this.direction === 'left') Object.assign(this.position, { x: this.position.x - 16 })
     if (this.direction === 'down') Object.assign(this.position, { y: this.position.y + 16 })
     if (this.direction === 'up') Object.assign(this.position, { y: this.position.y - 16 })
+
+    this.col = { x: this.position.x - 16, y: this.position.y, w: 64, h: 64 }
+
     if (this.props.type === 'camera') this.direction = this.props.direction
     if (next.x === this.position.x && next.y === this.position.y) {
       this.id = next.id
@@ -115,6 +183,7 @@ class Vigilance {
       this.props.height
     )
     ctx.closePath()
+    this.captureRadius(this.col)
     return sprite
   }
 }

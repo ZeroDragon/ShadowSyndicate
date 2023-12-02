@@ -13,6 +13,7 @@ class Obj {
     this.combinationTicks = 0
     this.combinationFailed = false
     this.combinationSuccess = false
+    this.clearText = () => Obj.clearText(this)
     this.col = {
       x: this.x + proto.col.x,
       y: this.y + proto.col.y,
@@ -24,6 +25,13 @@ class Obj {
 
   static setPrototypes (objs) {
     Obj.prototypes = objs.filter(({ type }) => type === 'prototype')
+  }
+
+  static clearText (obj) {
+    if (obj.textBound) {
+      const bounds = obj.textBound
+      ctxVfx.clearRect(bounds.x - 1, bounds.y - 1, bounds.w + 2, bounds.h + 2)
+    }
   }
 
   static setObjects (objs) {
@@ -235,7 +243,7 @@ class Obj {
       this.combinationSuccess = true
       this.computerDisplay()
       ctxVfx.fillStyle = game.palette[1]
-      displayText('Computer hacked', this)
+      game.displayText('Computer hacked', this)
       this.setState(true)
       return
     }
@@ -353,28 +361,6 @@ class Obj {
     ctxVfx.fill()
     ctxVfx.closePath()
   }
-
-  clearText () {
-    if (this.textBound) {
-      const bounds = this.textBound
-      ctxVfx.clearRect(bounds.x - 1, bounds.y - 1, bounds.w + 2, bounds.h + 2)
-    }
-  }
-}
-
-const displayText = (text, obj, fadeOut = false) => {
-  obj.clearText()
-  ctxVfx.font = '10px "Press Start 2P"'
-  ctxVfx.textAlign = 'center'
-  ctxVfx.fillText(text, obj.x + obj.width / 2, obj.y)
-  const textSize = ctxVfx.measureText(text)
-  const height = Math.ceil(textSize.actualBoundingBoxAscent + textSize.actualBoundingBoxDescent) + 2
-  obj.textBound = {
-    y: obj.y - height,
-    w: textSize.width,
-    h: height,
-    x: obj.x + obj.width / 2 - (textSize.width / 2)
-  }
 }
 
 const displayCombination = (combination, combinationStep, obj) => {
@@ -396,5 +382,5 @@ const displayCombination = (combination, combinationStep, obj) => {
     text = 'Safe unlocked'
   }
   if (obj.combinationFailed) ctxVfx.fillStyle = game.palette[4]
-  displayText(text, obj)
+  game.displayText(text, obj)
 }
