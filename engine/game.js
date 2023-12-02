@@ -2,7 +2,7 @@
 /* global Player, Vigilance createSoundMap, playNote, foundSFX, siren, ctxBg, Obj */
 const ctxSight = document.getElementById('sight').getContext('2d')
 const ctxVfx = document.getElementById('vfx').getContext('2d')
-const [drawCollitions, noShadows, noSounds] = [true, true, true]
+const [drawCollitions, noShadows, noSounds] = [false, false, false]
 const game = {
   objects: {},
   insideMap: [],
@@ -49,16 +49,18 @@ const game = {
           det.w,
           det.h
         )
-        ctxVfx.beginPath()
-        ctxVfx.strokeStyle = this.palette[4]
-        ctxVfx.rect(
-          obj.x + det.x,
-          obj.y + det.y,
-          det.w,
-          det.h
-        )
-        ctxVfx.stroke()
-        ctxVfx.closePath()
+        if (drawCollitions) {
+          ctxVfx.beginPath()
+          ctxVfx.strokeStyle = this.palette[4]
+          ctxVfx.rect(
+            obj.x + det.x,
+            obj.y + det.y,
+            det.w,
+            det.h
+          )
+          ctxVfx.stroke()
+          ctxVfx.closePath()
+        }
         computed.forEach(({ collitionIndex }) => {
           this.testTrigger(collitionIndex, obj)
         })

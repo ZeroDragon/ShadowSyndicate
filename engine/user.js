@@ -74,7 +74,7 @@ const playerActions = (keyCode) => {
       Player.instances.forEach(player => player.toggleActivation())
       break
     case userKeys.bKey:
-      Player.getCurrent().playerScaped = false
+      Player.getCurrent().return()
       Player.getCurrent().draw()
   }
 }

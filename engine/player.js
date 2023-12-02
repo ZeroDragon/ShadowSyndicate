@@ -12,6 +12,8 @@ class Player {
     this.playerScaped = false
     this.freezed = false
     this.properties = { foundMessage: 'Intruder found!' }
+    this.x = x
+    this.y = y
     this.clearText = () => Player.clearText(this)
     if (!Player.instances) Player.instances = []
     Player.instances.push(this)
@@ -55,8 +57,24 @@ class Player {
     this.ctx.closePath()
   }
 
+  return () {
+    this.playerScaped = false
+    const { x, y } = this
+    if (y < 20) this.y = 20
+    if (x < 100) this.x = 100
+    if (x > 400) this.x = 400
+    game.displayText('Player returned', this)
+    setTimeout(() => { this.clearText() }, 1000)
+  }
+
   scaped (x, y) {
     if (x === -24 || x === 504 || y === -32 || y === 480) {
+      ctxVfx.fillStyle = game.palette[1]
+      if (y < 20) this.y = 20
+      if (x < 100) this.x = 100
+      if (x > 400) this.x = 400
+      game.displayText('Player escaped', this)
+      setTimeout(() => { this.clearText() }, 1000)
       this.playerScaped = true
       Player.instances.forEach(player => player.toggleActivation())
       this.ctx.clearRect(0, 0, 512, 512)
