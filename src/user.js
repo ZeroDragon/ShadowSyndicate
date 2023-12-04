@@ -59,27 +59,33 @@ const eventsTrigger = (keyCode) => {
 
 const playerActions = (keyCode) => {
   const player = Player.getCurrent()
+  if (game.gameOver) return
   switch (keyCode) {
-    case userKeys.leftKey:
-      player.position.flip = true
-      player.move({ x: player.position.x - 16 })
-      break
-    case userKeys.rightKey:
-      player.position.flip = false
-      player.move({ x: player.position.x + 16 })
-      break
-    case userKeys.upKey:
-      player.move({ y: player.position.y - 16 })
-      break
-    case userKeys.downKey:
-      player.move({ y: player.position.y + 16 })
-      break
     case userKeys.aKey:
       Player.instances.forEach(player => player.toggleActivation())
       break
-    case userKeys.bKey:
-      Player.getCurrent().return()
-      Player.getCurrent().draw()
+    default:
+      if (player.frezed) return
+      switch (keyCode) {
+        case userKeys.leftKey:
+          player.position.flip = true
+          player.move({ x: player.position.x - 16 })
+          break
+        case userKeys.rightKey:
+          player.position.flip = false
+          player.move({ x: player.position.x + 16 })
+          break
+        case userKeys.upKey:
+          player.move({ y: player.position.y - 16 })
+          break
+        case userKeys.downKey:
+          player.move({ y: player.position.y + 16 })
+          break
+        case userKeys.bKey:
+          Player.getCurrent().return()
+          Player.getCurrent().draw()
+      }
+      break
   }
 }
 

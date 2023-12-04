@@ -47,7 +47,6 @@ export class Player {
   }
 
   toggleActivation () {
-    if (game.gameOver) return
     this.active = !this.active
     if (this.playerScaped) return
     this.draw()
@@ -61,6 +60,7 @@ export class Player {
   }
 
   return () {
+    if (!this.playerScaped) return
     this.playerScaped = false
     const { x, y } = this
     if (y < 20) this.y = 20
