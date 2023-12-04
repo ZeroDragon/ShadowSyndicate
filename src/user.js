@@ -1,4 +1,8 @@
-/* global Player, Vigilance, game, Obj */
+import { game } from './game'
+import { Player } from './player'
+import { Obj } from './objects'
+import { Vigilance } from './vigilance'
+
 const ctxBg = document.getElementById('background').getContext('2d')
 const ctxFloor = document.getElementById('floor').getContext('2d')
 const ctxWalls = document.getElementById('walls').getContext('2d')
@@ -14,7 +18,7 @@ const userKeys = {
   aKey: 'K'.charCodeAt(),
   bKey: 'J'.charCodeAt()
 }
-const tileset = new Image()
+export const tileset = new Image()
 let throttler = -Infinity
 let interval
 let started = false
@@ -109,12 +113,15 @@ const setPalette = tileset => {
   }
 }
 
-const preload = level => {
+export const preload = level => {
   Player.create(ctxPlayer1, 440, 384, true)
   // Player.create(ctxPlayer1, -8, 0, true)
   Player.create(ctxPlayer2, -8, 32)
   fetch(`${level}/map.json`)
-    .then(response => response.json())
+    .then(response => {
+      console.log(response)
+      return response.json()
+    })
     .then((map) => {
       const tileSource = map.properties.find(itm => itm.name === 'tileset')
       tileset.onload = function () {
@@ -158,5 +165,3 @@ const preload = level => {
       tileset.src = `${level}/${tileSource.value}`
     })
 }
-
-preload('levels/0001')

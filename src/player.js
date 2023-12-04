@@ -1,7 +1,10 @@
-/* global game, drawCollitions, tileset, Obj, ctxVfx */
+import { game, drawCollitions } from './game'
+import { Obj } from './objects'
+import { tileset } from './user'
 
-// eslint-disable-next-line no-unused-vars
-class Player {
+const ctxVfx = document.getElementById('vfx').getContext('2d')
+
+export class Player {
   constructor (ctx, x, y, active = false) {
     this.position = {
       x, y, flip: true, inside: false, col: { x: 8, y: 32, w: 16, h: 16 }

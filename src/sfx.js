@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* global game */
+import { game } from './game'
+
 const tableOfFreq = {
   C0: 16.35,
   Db0: 17.32,
@@ -136,7 +136,7 @@ const beep = (duration, frequency, type, volume, second = false) => {
 }
 
 // eslint-disable-next-line no-unused-vars
-const playNote = ([note, ...notes], volume = 0.1, type = 'triangle') => {
+export const playNote = ([note, ...notes], volume = 0.1, type = 'triangle') => {
   if (!note) return
   const [duration, frequency] = note
   beep(duration, frequency, type, volume)
@@ -147,7 +147,7 @@ const playNote = ([note, ...notes], volume = 0.1, type = 'triangle') => {
 }
 
 // eslint-disable-next-line no-unused-vars
-const createSoundMap = (frequencies, durations) => {
+export const createSoundMap = (frequencies, durations) => {
   return frequencies.map((note, index) => {
     return [
       durations[index],
@@ -155,13 +155,13 @@ const createSoundMap = (frequencies, durations) => {
     ]
   })
 }
-const foundSFX = _ => {
+export const foundSFX = _ => {
   playNote(createSoundMap(
     ['Fb2', 'F2', 'Gb2', 'G2', 'Ab2', 'A2', 'Bb2', 'B2', 'Bb2', 'C3', 'Db3', 'D3'],
     [40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160]
   ), 0.1, 'square')
 }
-const siren = _ => {
+export const siren = _ => {
   if (game.gameOver) return
   beep(1500, 523.25, 'triangle', 0.1, 880.00)
   setTimeout(siren, 1500)

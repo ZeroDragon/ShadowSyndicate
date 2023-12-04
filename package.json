@@ -2,17 +2,22 @@
   "name": "sneaky",
   "version": "1.0.3",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx parcel lib/index.html --port 8000",
+    "predev": "rm -rf ./dist && mkdir ./dist && ln -s ../levels ./dist/",
+    "build": "npx parcel build lib/index.html",
+    "prebuild": "mkdir ./dist && ln -s ../levels ./dist/"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.54.0",
+    "@parcel/packager-raw-url": "^2.10.3",
+    "@parcel/transformer-webmanifest": "^2.10.3",
+    "eslint": "^8.55.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-n": "^16.3.1",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "parcel": "^2.10.3"
   }
 }

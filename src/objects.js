@@ -1,7 +1,11 @@
-/* global Player, tileset, drawCollitions, game playNote, createSoundMap ctxVfx */
+import { game, drawCollitions } from './game'
+import { Player } from './player'
+import { tileset } from './user'
+import { playNote, createSoundMap } from './sfx'
 
-// eslint-disable-next-line no-unused-vars
-class Obj {
+const ctxVfx = document.getElementById('vfx').getContext('2d')
+
+export class Obj {
   constructor (obj) {
     this.ctx = document.getElementById('objects').getContext('2d')
     Object.entries(obj).forEach(([key, value]) => {

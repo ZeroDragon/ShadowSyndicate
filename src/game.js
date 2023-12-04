@@ -1,9 +1,15 @@
-/* eslint-disable no-unused-vars */
-/* global Player, Vigilance createSoundMap, playNote, foundSFX, siren, ctxBg, Obj */
+import { playNote, createSoundMap, siren, foundSFX } from './sfx'
+import { Vigilance } from './vigilance'
+import { Player } from './player'
+import { Obj } from './objects'
+
 const ctxSight = document.getElementById('sight').getContext('2d')
 const ctxVfx = document.getElementById('vfx').getContext('2d')
-const [drawCollitions, noShadows, noSounds] = [false, false, false]
-const game = {
+const ctxBg = document.getElementById('background').getContext('2d')
+
+export const [drawCollitions, noShadows, noSounds] = [false, false, false]
+
+export const game = {
   objects: {},
   insideMap: [],
   collitionMap: [],
@@ -15,6 +21,9 @@ const game = {
   found: false,
   police: false,
   gameOver: false,
+  Player,
+  Vigilance,
+  Obj,
   ticker () {
     if (this.stepValue === 10) this.stepValue = 0
     this.stepValue += 1
@@ -40,7 +49,6 @@ const game = {
     Obj.instances
       .filter(obj => obj.state === true)
       .forEach(obj => {
-        const { x, y } = obj
         let det = { x: 0, y: 0, w: obj.width, h: obj.height }
         if (obj.properties.detection) det = obj.properties.detection
         const computed = this.multupleComputePosition(
@@ -309,4 +317,8 @@ const game = {
       x: obj.x + obj.width / 2 - (textSize.width / 2)
     }
   }
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  global.game = game
 }

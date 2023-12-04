@@ -1,7 +1,10 @@
-/* global tileset, Obj, game, drawCollitions, ctxVfx */
+import { game, drawCollitions } from './game'
+import { Obj } from './objects'
+import { tileset } from './user'
 
-// eslint-disable-next-line no-unused-vars
-class Vigilance {
+const ctxVfx = document.getElementById('vfx').getContext('2d')
+
+export class Vigilance {
   constructor (item) {
     this.props = item
     this.position = { x: item.x, y: item.y }
