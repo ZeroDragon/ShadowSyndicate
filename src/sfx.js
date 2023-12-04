@@ -1,5 +1,3 @@
-import { game } from './game'
-
 const tableOfFreq = {
   C0: 16.35,
   Db0: 17.32,
@@ -162,7 +160,6 @@ export const foundSFX = _ => {
   ), 0.1, 'square')
 }
 export const siren = _ => {
-  if (game.gameOver) return
   beep(1500, 523.25, 'triangle', 0.1, 880.00)
   setTimeout(siren, 1500)
 }

@@ -1,6 +1,6 @@
 import { game, drawCollitions } from './game'
 import { Obj } from './objects'
-import { tileset } from './user'
+import { tileset } from './index'
 
 const ctxVfx = document.getElementById('vfx').getContext('2d')
 

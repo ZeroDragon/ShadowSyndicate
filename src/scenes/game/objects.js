@@ -1,7 +1,7 @@
 import { game, drawCollitions } from './game'
 import { Player } from './player'
-import { tileset } from './user'
-import { playNote, createSoundMap } from './sfx'
+import { tileset } from './index'
+import { playNote, createSoundMap } from '../../sfx'
 
 const ctxVfx = document.getElementById('vfx').getContext('2d')
 

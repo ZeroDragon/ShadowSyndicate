@@ -1,4 +1,4 @@
-import { playNote, createSoundMap, siren, foundSFX } from './sfx'
+import { playNote, createSoundMap, siren, foundSFX } from '../../sfx'
 import { Vigilance } from './vigilance'
 import { Player } from './player'
 import { Obj } from './objects'

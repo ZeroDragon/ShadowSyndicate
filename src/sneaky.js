@@ -1,3 +1,6 @@
-import { preload } from './user'
+import { User } from './user'
+import { preload } from './scenes/game'
 
-preload('./levels/0001')
+const user = new User()
+
+preload('./levels/0001', user)
