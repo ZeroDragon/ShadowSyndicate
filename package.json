@@ -4,9 +4,10 @@
   "description": "",
   "scripts": {
     "dev": "npx parcel lib/index.html --port 8000",
-    "predev": "rm -rf ./dist && mkdir ./dist && ln -s ../levels ./dist/",
+    "clear-cache" : "rm -rf ./dist && rm -rf ./.parcel-cache",
+    "predev": "npm run clear-cache && mkdir ./dist && ln -s ../levels ./dist/",
     "build": "npx parcel build lib/index.html --public-url ./",
-    "prebuild": "mkdir ./dist && ln -s ../levels ./dist/"
+    "prebuild": "npm run clear-cache && mkdir ./dist && ln -s ../levels ./dist/"
   },
   "author": "",
   "license": "ISC",

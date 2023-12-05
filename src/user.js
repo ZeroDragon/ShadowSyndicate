@@ -16,24 +16,21 @@ export class User {
     })
     const items = [...document.querySelectorAll('.input')]
     items.forEach(button => {
-      button.addEventListener('touchstart', (event) => {
+      const eventStart = event => {
         this.interval = setInterval(() => {
-          const [, input] = event.target.className.split(' ')
-          this.eventsTrigger(userKeys[`${input}Key`])
+          const buttonName = event.target.className
+            .split(' ')
+            .filter(name => name !== 'input')[0]
+          this.eventsTrigger(userKeys[`${buttonName}Key`])
         }, 50)
-      })
-      button.addEventListener('touchend', _ => {
+      }
+      const eventEnd = _ => {
         clearInterval(this.interval)
-      })
-      button.addEventListener('mousedown', (event) => {
-        this.interval = setInterval(() => {
-          const [, input] = event.target.className.split(' ')
-          this.eventsTrigger(userKeys[`${input}Key`])
-        }, 50)
-      })
-      button.addEventListener('mouseup', _ => {
-        clearInterval(this.interval)
-      })
+      }
+      button.addEventListener('touchstart', eventStart)
+      button.addEventListener('touchend', eventEnd)
+      button.addEventListener('mousedown', eventStart)
+      button.addEventListener('mouseup', eventEnd)
     })
     document.querySelector('body').addEventListener('touchend', (e) => {
       e.preventDefault()
