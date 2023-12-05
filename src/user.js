@@ -25,6 +25,15 @@ export class User {
       button.addEventListener('touchend', _ => {
         clearInterval(this.interval)
       })
+      button.addEventListener('mousedown', (event) => {
+        this.interval = setInterval(() => {
+          const [, input] = event.target.className.split(' ')
+          this.eventsTrigger(userKeys[`${input}Key`])
+        }, 50)
+      })
+      button.addEventListener('mouseup', _ => {
+        clearInterval(this.interval)
+      })
     })
     document.querySelector('body').addEventListener('touchend', (e) => {
       e.preventDefault()
