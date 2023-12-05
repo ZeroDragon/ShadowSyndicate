@@ -84,7 +84,7 @@ const setPalette = tileset => {
   }
 }
 
-export const preload = (level, user) => {
+export const gameLevel = (level, user) => {
   user.changeTrigger(eventsTrigger)
   Player.create(ctxPlayer1, 440, 384, true)
   // Player.create(ctxPlayer1, -8, 0, true)

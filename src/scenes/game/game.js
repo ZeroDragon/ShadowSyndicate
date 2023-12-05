@@ -76,7 +76,7 @@ export const game = {
     const delay = this.found ? 400 : 800
     const now = new Date().getTime()
     if (this.found && now - this.found > 5000 && !this.police) {
-      siren()
+      siren(this)
       this.police = true
     }
     if (this.found && now - this.found > 15000 && !this.gameOver) {

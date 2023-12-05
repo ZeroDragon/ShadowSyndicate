@@ -1,6 +1,6 @@
 import { User } from './user'
-import { preload } from './scenes/game'
+import { gameLevel } from './scenes/game'
 
 const user = new User()
 
-preload('./levels/0001', user)
+gameLevel('./levels/0001', user)

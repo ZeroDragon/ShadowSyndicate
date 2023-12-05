@@ -159,7 +159,10 @@ export const foundSFX = _ => {
     [40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160]
   ), 0.1, 'square')
 }
-export const siren = _ => {
+export const siren = game => {
+  if (game.gameOver) return
   beep(1500, 523.25, 'triangle', 0.1, 880.00)
-  setTimeout(siren, 1500)
+  setTimeout(() => {
+    siren(game)
+  }, 1500)
 }
