@@ -51,7 +51,7 @@ export const game = {
       .forEach(obj => {
         let det = { x: 0, y: 0, w: obj.width, h: obj.height }
         if (obj.properties.detection) det = obj.properties.detection
-        const computed = this.multupleComputePosition(
+        const computed = this.multipleComputePosition(
           obj.x + det.x,
           obj.y + det.y,
           det.w,
@@ -99,7 +99,7 @@ export const game = {
     Vigilance.ctxSight.clearRect(0, 0, 512, 512)
     Vigilance.getActiveVigilance().forEach(vg => { this.generateSight(vg) })
   },
-  multupleComputePosition (x, y, w, h) {
+  multipleComputePosition (x, y, w, h) {
     const computed = new Set()
     for (let xd = x; xd < x + w; xd += 16) {
       for (let yd = y; yd < y + h; yd += 16) {
