@@ -1,6 +1,7 @@
 import { game, drawCollitions } from './game'
 import { Obj } from './objects'
 import { tileset } from './index'
+import { gameOver } from '../gameOver'
 
 const ctxVfx = document.getElementById('vfx').getContext('2d')
 
@@ -66,7 +67,7 @@ export class Player {
     if (y < 20) this.y = 20
     if (x < 100) this.x = 100
     if (x > 400) this.x = 400
-    game.displayText('Player returned', this)
+    game.displayText('Returned', this)
     setTimeout(() => { this.clearText() }, 1000)
   }
 
@@ -76,7 +77,7 @@ export class Player {
       if (y < 20) this.y = 20
       if (x < 100) this.x = 100
       if (x > 400) this.x = 400
-      game.displayText('Player escaped', this)
+      game.displayText('Escaped', this)
       setTimeout(() => { this.clearText() }, 1000)
       this.playerScaped = true
       Player.instances.forEach(player => player.toggleActivation())
@@ -84,6 +85,7 @@ export class Player {
       if (!Player.instances.some(pl => !pl.playerScaped)) {
         game.gameOver = true
         clearInterval(game.timer)
+        gameOver(game.user)
       }
     }
     return this.playerScaped

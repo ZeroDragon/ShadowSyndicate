@@ -188,8 +188,9 @@ export class Obj {
       ]
     }
     const set = tableOfValues[this.type]
-    if (!game.loot) game.loot = []
-    game.loot.push(set[Math.floor(Math.random() * set.length - 1)])
+    if (!game.brain.loot) game.brain.set('loot', [])
+    const loot = set[~~(set.length * Math.random() | 0)]
+    game.brain.push('loot', loot)
   }
 
   reset () {

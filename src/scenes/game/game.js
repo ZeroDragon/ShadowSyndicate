@@ -2,6 +2,7 @@ import { playNote, createSoundMap, siren, foundSFX } from '../../sfx'
 import { Vigilance } from './vigilance'
 import { Player } from './player'
 import { Obj } from './objects'
+import { gameOver } from '../gameOver'
 
 const ctxSight = document.getElementById('sight').getContext('2d')
 const ctxVfx = document.getElementById('vfx').getContext('2d')
@@ -10,17 +11,22 @@ const ctxBg = document.getElementById('background').getContext('2d')
 export const [drawCollitions, noShadows, noSounds] = [false, false, false]
 
 export const game = {
-  objects: {},
-  insideMap: [],
-  collitionMap: [],
-  alertTrigger: [],
-  haltTrigger: [],
-  timer: null,
-  stepValue: 0,
-  hasEnergy: true,
-  found: false,
-  police: false,
-  gameOver: false,
+  reset () {
+    this.objects = {}
+    this.insideMap = []
+    this.collitionMap = []
+    this.alertTrigger = []
+    this.haltTrigger = []
+    this.timer = null
+    this.stepValue = 0
+    this.hasEnergy = true
+    this.found = false
+    this.police = false
+    this.gameOver = false
+    Player.instances = []
+    Vigilance.instances = []
+    Obj.instances = []
+  },
   Player,
   Vigilance,
   Obj,
@@ -81,6 +87,7 @@ export const game = {
     }
     if (this.found && now - this.found > 15000 && !this.gameOver) {
       this.gameOver = true
+      gameOver(this.user)
       return clearInterval(this.timer)
     }
     if (this.police) {

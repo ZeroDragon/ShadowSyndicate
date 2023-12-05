@@ -3,8 +3,8 @@ import { Player } from './player'
 import { Obj } from './objects'
 import { Vigilance } from './vigilance'
 import { userKeys } from '../../user'
+import { reset } from '../../sneaky'
 
-const ctxBg = document.getElementById('background').getContext('2d')
 const ctxFloor = document.getElementById('floor').getContext('2d')
 const ctxWalls = document.getElementById('walls').getContext('2d')
 const ctxPlayer1 = document.getElementById('player1').getContext('2d')
@@ -86,6 +86,8 @@ const setPalette = tileset => {
 
 export const gameLevel = (level, user) => {
   user.changeTrigger(eventsTrigger)
+  game.user = user
+  game.reset()
   Player.create(ctxPlayer1, 440, 384, true)
   // Player.create(ctxPlayer1, -8, 0, true)
   Player.create(ctxPlayer2, -8, 32)
@@ -98,6 +100,7 @@ export const gameLevel = (level, user) => {
       const tileSource = map.properties.find(itm => itm.name === 'tileset')
       tileset.onload = function () {
         setPalette(tileset)
+        reset()
         Obj.setPrototypes(loadMetadata(map, 'objects', 'objects'))
         game.insideMap = loadMetadata(map, 'floor')
         game.collitionMap = loadMetadata(map, 'collitions')
@@ -105,11 +108,6 @@ export const gameLevel = (level, user) => {
         Obj.setObjects(loadMetadata(map, 'objects', 'objects'))
         Vigilance.createAll(loadMetadata(map, 'vigilance', 'objects'))
         Player.instances.forEach(player => player.draw())
-        ctxBg.beginPath()
-        ctxBg.fillStyle = game.palette[0]
-        ctxBg.rect(0, 0, 512, 512)
-        ctxBg.fill()
-        ctxBg.closePath()
         map.layers
           .filter(layer => layer.visible && layer.type === 'tilelayer')
           .forEach(itm => {
