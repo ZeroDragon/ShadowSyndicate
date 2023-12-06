@@ -4,14 +4,14 @@ import { game } from './scenes/game/game'
 
 class Brain {
   constructor () {
-    const gameData = JSON.parse(localStorage.sneaky || '{}')
+    const gameData = JSON.parse(localStorage.ShadowSyndicate || '{}')
     Object.entries(gameData).forEach(([k, v]) => { this[k] = v })
     if (!this.balance) this.balance = 0
     this.balance = ~~this.balance
   }
 
   save () {
-    localStorage.sneaky = JSON.stringify(this)
+    localStorage.ShadowSyndicate = JSON.stringify(this)
   }
 
   set (key, value) {

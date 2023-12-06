@@ -3,7 +3,7 @@ import { Player } from './player'
 import { Obj } from './objects'
 import { Vigilance } from './vigilance'
 import { userKeys } from '../../user'
-import { reset } from '../../sneaky'
+import { reset } from '../../ShadowSyndicate'
 
 const ctxFloor = document.getElementById('floor').getContext('2d')
 const ctxWalls = document.getElementById('walls').getContext('2d')

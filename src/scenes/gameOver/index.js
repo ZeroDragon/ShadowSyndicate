@@ -1,7 +1,7 @@
 import { gameLevel } from '../game/index.js'
 import { game } from '../game/game.js'
 import { Player } from '../game/player'
-import { reset } from '../../sneaky'
+import { reset } from '../../ShadowSyndicate'
 import { userKeys } from '../../user'
 
 const ctxBg = document.getElementById('background').getContext('2d')
