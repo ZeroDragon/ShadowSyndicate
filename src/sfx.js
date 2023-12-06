@@ -108,7 +108,10 @@ const tableOfFreq = {
   Bb8: 7458.62,
   B8: 7902.13
 }
-const audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext)()
+let audioCtx
+export const initAudio = _ => {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext)()
+}
 const beep = (duration, frequency, type, volume, second = false) => {
   const noteLength = duration / 1000
   const oscillator = audioCtx.createOscillator()

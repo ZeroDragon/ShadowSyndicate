@@ -93,7 +93,6 @@ export const gameLevel = (level, user) => {
   Player.create(ctxPlayer2, -8, 32)
   fetch(`${level}/map.json`)
     .then(response => {
-      console.log(response)
       return response.json()
     })
     .then((map) => {

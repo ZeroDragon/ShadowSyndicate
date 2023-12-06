@@ -20,7 +20,6 @@ const rightText = (text, y) => {
 
 export const gameOver = user => {
   const loot = JSON.parse(JSON.stringify(game.brain.get('loot')))
-  console.log(loot)
   reset()
 
   ctxBg.font = '14px "Press Start 2P"'

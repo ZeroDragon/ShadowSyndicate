@@ -1,5 +1,5 @@
 import { User } from './user'
-import { gameLevel } from './scenes/game'
+import { initial } from './scenes/initial'
 import { game } from './scenes/game/game'
 
 class Brain {
@@ -42,9 +42,9 @@ export const reset = _ => {
   })
   ctxBg.beginPath()
   ctxBg.rect(0, 0, 512, 512)
-  ctxBg.fillStyle = game.palette[0]
+  ctxBg.fillStyle = '#000'
   ctxBg.fill()
   ctxBg.closePath()
 }
 
-gameLevel('./levels/0001', user)
+initial(user)
