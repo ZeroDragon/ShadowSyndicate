@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="86">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="88">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -405,6 +405,8 @@
    </properties>
   </object>
   <object id="85" type="computer" x="208" y="240" width="32" height="32"/>
+  <object id="86" type="player" x="448" y="64" width="16" height="16"/>
+  <object id="87" type="player" x="416" y="16" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="19" name="vigilance">
   <object id="52" type="guard" x="64" y="96" width="32" height="48">

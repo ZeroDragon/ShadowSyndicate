@@ -5,8 +5,8 @@
     "levels" : [
       {
         "name": "Break in",
-        "description": "The basics of this business",
-        "path": "0001"
+        "description": "Learn how to move around, change between characters, use windows, doors and exit the zone",
+        "path": "tutorial-0001"
       }
     ]
   },
@@ -18,7 +18,7 @@
       {
         "name": "Demo Level",
         "description": "Level created to develop all features",
-        "path": "0001"
+        "path": "demo"
       }
     ]
   },
@@ -30,7 +30,7 @@
       {
         "name": "Demo Level",
         "description": "Level created to develop all features",
-        "path": "0001"
+        "path": "demo"
       }
     ]
   },
@@ -42,7 +42,7 @@
       {
         "name": "Demo Level",
         "description": "Level created to develop all features",
-        "path": "0001"
+        "path": "demo"
       }
     ]
   },
@@ -54,7 +54,7 @@
       {
         "name": "Demo Level",
         "description": "Level created to develop all features",
-        "path": "0001"
+        "path": "demo"
       }
     ]
   },
@@ -66,7 +66,7 @@
       {
         "name": "Demo Level",
         "description": "Level created to develop all features",
-        "path": "0001"
+        "path": "demo"
       }
     ]
   },
@@ -74,12 +74,6 @@
     "secuential": true,
     "name": "Unlimited",
     "description": "Coming soon...",
-    "levels" : [
-      {
-        "name": "Demo Level",
-        "description": "Level created to develop all features",
-        "path": "0001"
-      }
-    ]
+    "levels" : []
   }
 ]
