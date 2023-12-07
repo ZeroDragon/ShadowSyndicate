@@ -1,0 +1,85 @@
+[
+  {
+    "name": "Tutorial",
+    "description": "Baby steps to master all needed skills",
+    "levels" : [
+      {
+        "name": "Break in",
+        "description": "The basics of this business",
+        "path": "0001"
+      }
+    ]
+  },
+  {
+    "secuential": true,
+    "name": "Sub Urban",
+    "description": "Easy places in the sub urban area, no guards, low cameras but low rewards",
+    "levels" : [
+      {
+        "name": "Demo Level",
+        "description": "Level created to develop all features",
+        "path": "0001"
+      }
+    ]
+  },
+  {
+    "secuential": true,
+    "name": "Commercial",
+    "description": "Having fun? I heard that those guys at the commercial district have some values stored in their safes",
+    "levels" : [
+      {
+        "name": "Demo Level",
+        "description": "Level created to develop all features",
+        "path": "0001"
+      }
+    ]
+  },
+  {
+    "secuential": true,
+    "name": "Business",
+    "description": "You will need hacking skills for this one, computers have nice rewards, but more guards are in the area",
+    "levels" : [
+      {
+        "name": "Demo Level",
+        "description": "Level created to develop all features",
+        "path": "0001"
+      }
+    ]
+  },
+  {
+    "secuential": true,
+    "name": "High Urban",
+    "description": "You know, those business people have kinda good houses, the only thing here is that they are heavily secured. Who knows, maybe there is good loot",
+    "levels" : [
+      {
+        "name": "Demo Level",
+        "description": "Level created to develop all features",
+        "path": "0001"
+      }
+    ]
+  },
+  {
+    "secuential": true,
+    "name": "Enterprise",
+    "description": "We have some special requests from a new patron, they want to... know some information about their competitors, if you know what I mean",
+    "levels" : [
+      {
+        "name": "Demo Level",
+        "description": "Level created to develop all features",
+        "path": "0001"
+      }
+    ]
+  },
+  {
+    "secuential": true,
+    "name": "Unlimited",
+    "description": "Coming soon...",
+    "levels" : [
+      {
+        "name": "Demo Level",
+        "description": "Level created to develop all features",
+        "path": "0001"
+      }
+    ]
+  }
+]
