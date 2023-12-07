@@ -39,7 +39,7 @@ const loadImage = _ => {
 
 const loadLevels = _ => {
   const p = new Promise(resolve => {
-    fetch('/levels/index.json')
+    fetch('./levels/index.json')
       .then(response => {
         return response.json()
       })
