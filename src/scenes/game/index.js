@@ -88,9 +88,6 @@ export const gameLevel = (level, user) => {
   user.changeTrigger(eventsTrigger)
   game.user = user
   game.reset()
-  Player.create(ctxPlayer1, 440, 384, true)
-  // Player.create(ctxPlayer1, -8, 0, true)
-  Player.create(ctxPlayer2, -8, 32)
   fetch(`${level}/map.json`)
     .then(response => {
       return response.json()
@@ -100,11 +97,20 @@ export const gameLevel = (level, user) => {
       tileset.onload = function () {
         setPalette(tileset)
         reset()
-        Obj.setPrototypes(loadMetadata(map, 'objects', 'objects'))
+        let objs = loadMetadata(map, 'objects', 'objects')
+        objs
+          .filter(itm => itm.type === 'player')
+          .slice(0, 2)
+          .forEach((pl, index) => {
+            const ctx = index === 0 ? ctxPlayer1 : ctxPlayer2
+            Player.create(ctx, pl.x + 8, pl.y + 16, index)
+          })
+        objs = objs.filter(itm => itm.type !== 'player')
+        Obj.setPrototypes(objs)
         game.insideMap = loadMetadata(map, 'floor')
         game.collitionMap = loadMetadata(map, 'collitions')
         game.obstaclesMap = loadMetadata(map, 'obstacles')
-        Obj.setObjects(loadMetadata(map, 'objects', 'objects'))
+        Obj.setObjects(objs)
         Vigilance.createAll(loadMetadata(map, 'vigilance', 'objects'))
         Player.instances.forEach(player => player.draw())
         map.layers

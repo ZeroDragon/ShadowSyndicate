@@ -1,7 +1,6 @@
 import { gameLevel } from '../game/index.js'
 import { reset } from '../../ShadowSyndicate'
 import { userKeys } from '../../user'
-// import { game } from '../game/game'
 
 const background = document.getElementById('background').getContext('2d')
 const first = document.getElementById('floor').getContext('2d')
@@ -51,6 +50,11 @@ const loadLevels = _ => {
 }
 
 const slowDraw = (index = 0) => {
+  if (index === 0) {
+    first.beginPath()
+    first.clearRect(0, 0, 512, 512)
+    first.closePath()
+  }
   const item = currentLine[index]
   if (!item) return
   const col = index % 4
@@ -128,9 +132,32 @@ const drawDescription = _ => {
   }, 100)
 }
 
-const loadLevel = user => {
-  reset()
-  gameLevel(`./levels/${currentLine[position].levels[0].path}`, user)
+const drawSelectedOptions = async _ => {
+  position = 0
+  drawCursor()
+  await slowDraw()
+  drawDescription()
+}
+
+const selectOption = async user => {
+  const itm = currentLine[position]
+  if (itm.levels) {
+    currentLine = [
+      {
+        name: '<] return',
+        description: '',
+        path: '<goback>'
+      },
+      ...currentLine[position].levels
+    ]
+    drawSelectedOptions()
+  } else if (itm.path === '<goback>') {
+    currentLine = line
+    drawSelectedOptions()
+  } else {
+    reset()
+    gameLevel(`./levels/${itm.path}`, user)
+  }
 }
 
 let throttler = -Infinity
@@ -154,7 +181,7 @@ const playerActions = (keyCode, user) => {
       drawDescription()
       break
     case userKeys.aKey:
-      loadLevel(user)
+      selectOption(user)
       break
   }
 }
@@ -164,7 +191,6 @@ export const selector = async user => {
   await loadImage()
   line = await loadLevels()
   currentLine = line
-  await slowDraw()
-  drawDescription()
+  drawSelectedOptions()
   user.changeTrigger(eventsTrigger(user))
 }
