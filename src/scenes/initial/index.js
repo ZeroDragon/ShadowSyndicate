@@ -1,4 +1,4 @@
-import { gameLevel } from '../game/index.js'
+import { selector } from '../levelSelector'
 import { reset } from '../../ShadowSyndicate'
 import { userKeys } from '../../user'
 import { initAudio } from '../../sfx'
@@ -22,7 +22,7 @@ export const initial = user => {
       ctxBg.strokeText('Syndicate', 450, 400)
     }, 200)
   }
-  image.src = '/logo.png'
+  image.src = require('~/public/images/logo.png')
 
   setTimeout(() => {
     ctxBg.textAlign = 'left'
@@ -45,7 +45,7 @@ const playerActions = (keyCode, user) => {
   initAudio()
   switch (keyCode) {
     case userKeys.rightKey:
-      gameLevel('./levels/0001', user)
+      selector(user)
       break
   }
 }

@@ -3,10 +3,10 @@
   "version": "1.0.3",
   "description": "",
   "scripts": {
-    "dev": "npx parcel lib/index.html --port 8000",
+    "dev": "npx parcel public/index.html --port 8000",
     "clear-cache" : "rm -rf ./dist && rm -rf ./.parcel-cache",
     "predev": "npm run clear-cache && mkdir ./dist && ln -s ../levels ./dist/",
-    "build": "npx parcel build lib/index.html --public-url ./",
+    "build": "npx parcel build public/index.html --public-url ./",
     "prebuild": "npm run clear-cache && mkdir ./dist && ln -s ../levels ./dist/"
   },
   "author": "",

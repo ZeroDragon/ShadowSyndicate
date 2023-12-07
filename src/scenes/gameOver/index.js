@@ -1,4 +1,4 @@
-import { gameLevel } from '../game/index.js'
+import { selector } from '../levelSelector'
 import { game } from '../game/game.js'
 import { Player } from '../game/player'
 import { reset } from '../../ShadowSyndicate'
@@ -75,7 +75,7 @@ const eventsTrigger = (user) => (keyCode) => {
 const playerActions = (keyCode, user) => {
   switch (keyCode) {
     case userKeys.leftKey:
-      gameLevel('./levels/0001', user)
+      selector(user)
       break
   }
 }
