@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="107">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="109">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -434,6 +434,16 @@
    </properties>
   </object>
   <object id="102" type="camera" x="272" y="224" width="16" height="16">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object id="107" type="camera" x="240" y="144" width="16" height="16">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object id="108" type="camera" x="272" y="144" width="16" height="16">
    <properties>
     <property name="direction" value="right"/>
    </properties>
