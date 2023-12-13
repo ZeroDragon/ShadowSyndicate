@@ -326,6 +326,6 @@ export const game = {
   }
 }
 
-// if (process.env.NODE_ENV !== 'production') {
-global.game = game
-// }
+if (process.env.NODE_ENV !== 'production') {
+  global.game = game
+}
