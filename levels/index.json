@@ -1,79 +1,40 @@
 [
   {
-    "name": "Tutorial",
     "description": "Baby steps to master all needed skills",
-    "levels" : [
+    "name": "Tutorial",
+    "number": 1,
+    "levels": [
       {
-        "name": "Break in",
+        "path": "tutorial-0001",
+        "campaign": "Tutorial",
         "description": "Learn how to move around, change between characters, use windows, doors and exit the zone",
-        "path": "tutorial-0001"
+        "name": "Break in"
+      },
+      {
+        "path": "tutorial-0002",
+        "campaign": "Tutorial",
+        "description": "When a camera sees you, the alarm is triggered, learn how to avoid being seen",
+        "name": "Cameras"
+      },
+      {
+        "path": "tutorial-0003",
+        "campaign": "Tutorial",
+        "description": "There are more cameras, but each system operates over another system. Use the fusebox to turn them off",
+        "name": "De Fuse It"
       }
     ]
   },
   {
-    "secuential": true,
-    "name": "Sub Urban",
     "description": "Easy places in the sub urban area, no guards, low cameras but low rewards",
-    "levels" : [
+    "name": "Sub urban",
+    "number": 2,
+    "levels": [
       {
-        "name": "Demo Level",
+        "path": "999-demo",
+        "campaign": "Sub urban",
         "description": "Level created to develop all features",
-        "path": "demo"
+        "name": "Demo level"
       }
     ]
-  },
-  {
-    "secuential": true,
-    "name": "Commercial",
-    "description": "Having fun? I heard that those guys at the commercial district have some values stored in their safes",
-    "levels" : [
-      {
-        "name": "Demo Level",
-        "description": "Level created to develop all features",
-        "path": "demo"
-      }
-    ]
-  },
-  {
-    "secuential": true,
-    "name": "Business",
-    "description": "You will need hacking skills for this one, computers have nice rewards, but more guards are in the area",
-    "levels" : [
-      {
-        "name": "Demo Level",
-        "description": "Level created to develop all features",
-        "path": "demo"
-      }
-    ]
-  },
-  {
-    "secuential": true,
-    "name": "High Urban",
-    "description": "You know, those business people have kinda good houses, the only thing here is that they are heavily secured. Who knows, maybe there is good loot",
-    "levels" : [
-      {
-        "name": "Demo Level",
-        "description": "Level created to develop all features",
-        "path": "demo"
-      }
-    ]
-  },
-  {
-    "secuential": true,
-    "name": "Enterprise",
-    "description": "We have some special requests from a new patron, they want to... know some information about their competitors, if you know what I mean",
-    "levels" : [
-      {
-        "name": "Demo Level",
-        "description": "Level created to develop all features",
-        "path": "demo"
-      }
-    ]
-  },
-  {
-    "secuential": true,
-    "name": "Unlimited",
-    "description": "Coming soon...",
-    "levels" : []
   }
 ]

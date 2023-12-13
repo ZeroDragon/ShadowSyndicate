@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="99">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="101">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
  <properties>
   <property name="campaign" value="Tutorial"/>
-  <property name="campaign-description" value="Baby steps to master all needed skills"/>
-  <property name="campaign-name" value="Tutorial"/>
-  <property name="campaign-number" value="1"/>
-  <property name="description" value="Learn how to move around, change between characters, use windows, doors and exit the zone"/>
-  <property name="name" value="Break in"/>
+  <property name="description" value="When a camera sees you, the alarm is triggered, learn how to avoid being seen"/>
+  <property name="name" value="Cameras"/>
   <property name="tileset" type="file" value="tileset.png"/>
  </properties>
  <tileset firstgid="1" source="tileset.tsx"/>
- <tileset firstgid="177" source="../tutorial-0002/tileset.tsx"/>
  <layer id="22" name="floor" width="32" height="32">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -25,7 +21,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,0,0,0,0,0,
+0,0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0,0,0,0,0,
 0,0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0,0,0,0,0,
 0,0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0,0,0,0,0,
 0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0,0,0,0,
@@ -416,8 +412,19 @@
   </object>
   <object id="95" type="door" x="160" y="336" width="32" height="48"/>
   <object id="96" type="door" x="352" y="128" width="32" height="48"/>
-  <object id="97" type="player" x="160" y="416" width="16" height="16"/>
-  <object id="98" type="player" x="352" y="48" width="16" height="16"/>
+  <object id="99" type="player" x="160" y="416" width="16" height="16"/>
+  <object id="100" type="player" x="352" y="48" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="19" name="vigilance"/>
+ <objectgroup id="19" name="vigilance">
+  <object id="97" type="camera" x="96" y="144" width="16" height="16">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object id="98" type="camera" x="416" y="144" width="16" height="16">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

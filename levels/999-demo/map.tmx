@@ -4,6 +4,12 @@
   <export target="map.json" format="json"/>
  </editorsettings>
  <properties>
+  <property name="campaign" value="Sub urban"/>
+  <property name="campaign-description" value="Easy places in the sub urban area, no guards, low cameras but low rewards"/>
+  <property name="campaign-name" value="Sub urban"/>
+  <property name="campaign-number" value="2"/>
+  <property name="description" value="Level created to develop all features"/>
+  <property name="name" value="Demo level"/>
   <property name="tileset" type="file" value="tileset.png"/>
  </properties>
  <tileset firstgid="1" source="tileset.tsx"/>
