@@ -136,7 +136,6 @@ const beep = (duration, frequency, type, volume, second = false) => {
   oscillator.connect(gainNode)
 }
 
-// eslint-disable-next-line no-unused-vars
 export const playNote = ([note, ...notes], volume = 0.1, type = 'triangle') => {
   if (!note) return
   const [duration, frequency] = note
@@ -147,7 +146,6 @@ export const playNote = ([note, ...notes], volume = 0.1, type = 'triangle') => {
   }, duration)
 }
 
-// eslint-disable-next-line no-unused-vars
 export const createSoundMap = (frequencies, durations) => {
   return frequencies.map((note, index) => {
     return [
@@ -156,12 +154,14 @@ export const createSoundMap = (frequencies, durations) => {
     ]
   })
 }
+
 export const foundSFX = _ => {
   playNote(createSoundMap(
     ['Fb2', 'F2', 'Gb2', 'G2', 'Ab2', 'A2', 'Bb2', 'B2', 'Bb2', 'C3', 'Db3', 'D3'],
     [40, 160, 40, 160, 40, 160, 40, 160, 40, 160, 40, 160]
   ), 0.1, 'square')
 }
+
 export const siren = game => {
   if (game.gameOver) return
   beep(1500, 523.25, 'triangle', 0.1, 880.00)
