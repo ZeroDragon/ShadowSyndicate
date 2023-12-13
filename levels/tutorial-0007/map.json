@@ -1207,32 +1207,17 @@
         {
          "name":"campaign",
          "type":"string",
-         "value":"Sub urban"
-        }, 
-        {
-         "name":"campaign-description",
-         "type":"string",
-         "value":"Easy places in the sub urban area, no guards, low cameras but low rewards"
-        }, 
-        {
-         "name":"campaign-name",
-         "type":"string",
-         "value":"Sub urban"
-        }, 
-        {
-         "name":"campaign-number",
-         "type":"string",
-         "value":"2"
+         "value":"Tutorial"
         }, 
         {
          "name":"description",
          "type":"string",
-         "value":"Level created to develop all features"
+         "value":"Now try all together"
         }, 
         {
          "name":"name",
          "type":"string",
-         "value":"Demo level"
+         "value":"Final step"
         }, 
         {
          "name":"tileset",
