@@ -12,7 +12,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0,
@@ -864,8 +864,8 @@
                  "type":"player",
                  "visible":true,
                  "width":16,
-                 "x":352,
-                 "y":48
+                 "x":160,
+                 "y":416
                 }, 
                 {
                  "height":16,
@@ -875,8 +875,8 @@
                  "type":"player",
                  "visible":true,
                  "width":16,
-                 "x":160,
-                 "y":432
+                 "x":352,
+                 "y":48
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -900,6 +900,36 @@
  "orientation":"orthogonal",
  "properties":[
         {
+         "name":"campaign",
+         "type":"string",
+         "value":"Tutorial"
+        }, 
+        {
+         "name":"campaign-description",
+         "type":"string",
+         "value":"Baby steps to master all needed skills"
+        }, 
+        {
+         "name":"campaign-name",
+         "type":"string",
+         "value":"Tutorial"
+        }, 
+        {
+         "name":"campaign-number",
+         "type":"string",
+         "value":"1"
+        }, 
+        {
+         "name":"description",
+         "type":"string",
+         "value":"Learn how to move around, change between characters, use windows, doors and exit the zone"
+        }, 
+        {
+         "name":"name",
+         "type":"string",
+         "value":"Break in"
+        }, 
+        {
          "name":"tileset",
          "type":"file",
          "value":"tileset.png"
@@ -911,6 +941,10 @@
         {
          "firstgid":1,
          "source":"tileset.tsx"
+        }, 
+        {
+         "firstgid":177,
+         "source":"..\/tutorial-0002\/tileset.tsx"
         }],
  "tilewidth":16,
  "type":"map",

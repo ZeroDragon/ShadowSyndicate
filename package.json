@@ -1,10 +1,10 @@
 {
   "name": "shadow-syindicate",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "scripts": {
     "dev": "npx parcel public/index.html --port 8000",
-    "clear-cache" : "rm -rf ./dist && rm -rf ./.parcel-cache",
+    "clear-cache": "node builder.js && rm -rf ./dist && rm -rf ./.parcel-cache",
     "predev": "npm run clear-cache && mkdir ./dist && ln -s ../levels ./dist/",
     "build": "npx parcel build public/index.html --public-url ./",
     "prebuild": "npm run clear-cache && mkdir ./dist && ln -s ../levels ./dist/"
