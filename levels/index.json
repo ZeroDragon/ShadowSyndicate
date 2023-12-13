@@ -39,19 +39,12 @@
         "campaign": "Tutorial",
         "description": "There is one guard patrolling try to not get caught",
         "name": "Guards!"
-      }
-    ]
-  },
-  {
-    "description": "Easy places in the sub urban area, no guards, low cameras but low rewards",
-    "name": "Sub urban",
-    "number": 2,
-    "levels": [
+      },
       {
         "path": "tutorial-0007",
-        "campaign": "Sub urban",
-        "description": "Level created to develop all features",
-        "name": "Demo level"
+        "campaign": "Tutorial",
+        "description": "Now try all together",
+        "name": "Final step"
       }
     ]
   }
