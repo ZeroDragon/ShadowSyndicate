@@ -21,6 +21,24 @@
         "campaign": "Tutorial",
         "description": "There are more cameras, but each system operates over another system. Use the fusebox to turn them off",
         "name": "De Fuse It"
+      },
+      {
+        "path": "tutorial-0004",
+        "campaign": "Tutorial",
+        "description": "There is a safebox try to open it by ticking right and left. Once is unlocked, open it to get your loot",
+        "name": "Is it safe?"
+      },
+      {
+        "path": "tutorial-0005",
+        "campaign": "Tutorial",
+        "description": "It's time to polish those hacker skills, hack the computer and get some loot",
+        "name": "Ping pong"
+      },
+      {
+        "path": "tutorial-0006",
+        "campaign": "Tutorial",
+        "description": "There is one guard patrolling try to not get caught",
+        "name": "Guards!"
       }
     ]
   },
