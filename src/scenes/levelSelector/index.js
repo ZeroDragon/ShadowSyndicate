@@ -49,14 +49,19 @@ const loadLevels = _ => {
   return p
 }
 
+let slowDrawing = null
 const slowDraw = (index = 0) => {
+  slowDrawing = true
   if (index === 0) {
     first.beginPath()
     first.clearRect(0, 0, 512, 512)
     first.closePath()
   }
   const item = currentLine[index]
-  if (!item) return
+  if (!item) {
+    slowDrawing = false
+    return
+  }
   const col = index % 4
   const row = Math.floor(index / 4)
   const left = padding + col * w + col * padding
@@ -140,6 +145,7 @@ const drawSelectedOptions = async _ => {
 }
 
 const selectOption = async user => {
+  if (slowDrawing) return
   const itm = currentLine[position]
   if (itm.levels) {
     currentLine = [

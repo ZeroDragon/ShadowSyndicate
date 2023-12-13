@@ -30,7 +30,7 @@ export const initial = user => {
     ctxBg.font = '14px "Press Start 2P"'
     ctxBg.fillText('Press <] to start', 50, 450)
     user.changeTrigger(eventsTrigger(user))
-  }, 2000)
+  }, 500)
 }
 
 let throttler = -Infinity
