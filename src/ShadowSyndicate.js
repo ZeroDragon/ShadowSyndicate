@@ -1,6 +1,5 @@
 import { User } from './user'
 import { initial } from './scenes/initial'
-// import { selector } from './scenes/levelSelector'
 import { game } from './scenes/game/game'
 
 class Brain {
@@ -49,4 +48,3 @@ export const reset = _ => {
 }
 
 initial(user)
-// selector(user)
